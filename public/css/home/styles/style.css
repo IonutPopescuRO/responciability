@@ -1,0 +1,29 @@
+.tile-stats .count {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.65857;
+}
+.tile-stats h3 {
+    color: #BAB8B8;
+}
+.tile-stats {
+    color: #73879C;
+}
+
+.tile-stats .icon {
+    width: 20px;
+    height: 20px;
+    color: #BAB8B8;
+    position: absolute;
+    right: 53px;
+    top: 22px;
+    z-index: 1;
+}
+
+.tile-stats .icon i {
+    margin: 0;
+    font-size: 60px;
+    line-height: 0;
+    vertical-align: bottom;
+    padding: 0;
+}
