@@ -149,6 +149,10 @@
                             </div>
                         </div>
 
+                        <div id="vertices">
+                            <input type="hidden" name="location" id="location" />
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -174,7 +178,7 @@
                 lat: -34.397,
                 lng: 150.644
             },
-            zoom: 8
+            zoom: 11
         });
 
         infoWindow = new google.maps.InfoWindow;
@@ -211,7 +215,9 @@
                     animation: google.maps.Animation.DROP,
                     position: pos
                 });
+
                 marker.addListener('click', toggleBounce);
+                marker.addListener('dragend', handleEvent);
 
             }, function() {
                 handleLocationError(true, infoWindow, map.getCenter());
@@ -240,6 +246,25 @@
         });
         drawingManager.setMap(map);
 
+        google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon) {
+            
+            drawingManager.setOptions({
+              drawingControl: false
+            });
+
+            var vertices = polygon.getPath();
+            
+            $(vertices.b).each(function(){
+                var lat = this.lat();
+                var lng = this.lng();
+
+                $('#vertices').append('<input name="area[]" type="hidden" value="'+lat+';'+lng+'">');
+            })
+
+            console.log(vertices);
+
+        });
+
     }
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -257,9 +282,17 @@
             marker.setAnimation(google.maps.Animation.BOUNCE);
         }
     }
+
+    function handleEvent() {
+        console.log(marker);
+        $('#location').val(marker.position.lat()+';'+marker.position.lng());
+    }
+
 </script>
 
 <script type="text/javascript"
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAApItPR-oxvnmOLsXyievDTiNuBM6jQ4s&libraries=drawing&callback=initMap" async defer>
 </script>
+
+<script src="{{ asset('js/home/jquery.js') }}"></script>
 @endsection
