@@ -16,7 +16,8 @@ class CustomUser extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->integer('age');
             $table->enum('gender', ['Male', 'Female', 'Other']);
-            $table->string('avatar');   
+            $table->string('avatar');
+            $table->string('lname')   
         });
     }
 
@@ -28,7 +29,7 @@ class CustomUser extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['age', 'gender', 'avatar']);
+            $table->dropColumn(['age', 'gender', 'avatar', 'lname']);
         });
     }
 }
