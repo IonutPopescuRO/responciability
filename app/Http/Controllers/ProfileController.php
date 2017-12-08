@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
-
+use DB;
+use Auth;
 class ProfileController extends Controller
 {
+	
     /**
      * Create a new controller instance.
      *
@@ -23,6 +25,12 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile');
+		$user_id = Auth::user()->id;
+		$user_area = DB::table('user_area')
+							 ->select('lat', 'lng')
+							 ->where('user_id', '=', $user_id)
+							 ->get();
+							 
+        return view('profile', ['user_area' => $user_area]);
     }
 }
