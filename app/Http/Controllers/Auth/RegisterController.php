@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\AreaOfInterest;
 use Mapper;
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -84,6 +86,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {   
+        $v = explode(';' , $data['location']);
+
+        $ulat = $v[0];
+        $ulng = $v[1];
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -91,8 +98,23 @@ class RegisterController extends Controller
             'age' => $data['age'],
             'gender' => $data['gender'],
             'lname' => $data['lname'],
-            'avatar' => NULL
+            'avatar' => NULL,
+            'lat' => $ulat,
+            'lng' => $ulng
         ]);
+
+        foreach($data['area'] as $vertice)
+        {   
+            $v = explode(';', $vertice);
+            $lat = $v[0];
+            $lng = $v[1];
+
+            AreaOfInterest::create([
+                'lat' => $lat,
+                'lng' => $lng,
+                'user_id' => $user->id,
+            ]);
+        }
 
         return $user;
     }
