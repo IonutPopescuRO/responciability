@@ -236,7 +236,7 @@
                 drawingModes: ['polygon']
             },
             polygonOptions: {
-                fillColor: '#ffff00',
+                fillColor: '#d9534f',
                 fillOpacity: 0.5,
                 strokeWeight: 5,
                 clickable: false,
