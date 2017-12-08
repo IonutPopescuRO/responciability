@@ -48,7 +48,7 @@
 					<a class="navbar-brand md" href="#">
 						<img src="{{ asset('images/logo.png') }}">
 
-						<span class="hidden-folded inline">Responsociability</span>
+						<span class="hidden-folded inline">Responciability</span>
 					</a>
 
 					<div class="collapse navbar-toggleable-sm text-center white" id="navbar-1">
