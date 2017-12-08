@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('styles')
+<style>
+       #map, #map2 {
+        height: 300px;
+        width: 100%;
+       }
+</style>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -124,6 +133,21 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
+                            <label for="avatar" class="col-md-4 control-label">Area of interest</label>
+
+                            <div class="col-md-6">
+                                <div id="map"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
+                            <label for="avatar" class="col-md-4 control-label">Geolocation</label>
+
+                            <div class="col-md-6">
+                                <div id="map2"></div>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
@@ -138,4 +162,104 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    var map, infoWindow, marker;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {
+                lat: -34.397,
+                lng: 150.644
+            },
+            zoom: 8
+        });
+
+        infoWindow = new google.maps.InfoWindow;
+
+        // map 2
+
+        var map2 = new google.maps.Map(document.getElementById('map2'), {
+            zoom: 13,
+            center: {
+                lat: 59.325,
+                lng: 18.070
+            }
+        });
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Your current location.');
+                infoWindow.open(map);
+                map.setCenter(pos);
+                map2.setCenter(pos);
+
+                // place marker
+
+                marker = new google.maps.Marker({
+                    map: map2,
+                    draggable: true,
+                    animation: google.maps.Animation.DROP,
+                    position: pos
+                });
+                marker.addListener('click', toggleBounce);
+
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+        //initialize area draw
+        var drawingManager = new google.maps.drawing.DrawingManager({
+            drawingMode: google.maps.drawing.OverlayType.POLYGON,
+            drawingControl: true,
+            drawingControlOptions: {
+                position: google.maps.ControlPosition.TOP_CENTER,
+                drawingModes: ['polygon']
+            },
+            polygonOptions: {
+                fillColor: '#ffff00',
+                fillOpacity: 0.5,
+                strokeWeight: 5,
+                clickable: false,
+                editable: true,
+                zIndex: 1
+            }
+        });
+        drawingManager.setMap(map);
+
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+    }
+
+    function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    }
+</script>
+
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAApItPR-oxvnmOLsXyievDTiNuBM6jQ4s&libraries=drawing&callback=initMap" async defer>
+</script>
 @endsection
