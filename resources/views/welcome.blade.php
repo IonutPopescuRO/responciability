@@ -10,7 +10,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 		
-	<link rel="icon" type="image/png" href="{{ asset('images/icon.png') }}" />
+		<link rel="icon" type="image/png" href="{{ asset('images/icon.png') }}" />
 		
 		<link rel="stylesheet" href="{{ asset('css/home/animate.css/animate.min.css') }}" type="text/css" />
 		<link rel="stylesheet" href="{{ asset('css/home/bootstrap/dist/css/bootstrap.min.css') }}" type="text/css" />
@@ -22,7 +22,7 @@
 		
 		<style>
 			.city {
-			   background:url(admin-user-bg.png) no-repeat top center;
+			   background:url({{ asset('images/city.jpg') }}) no-repeat top center;
 			   background: transparent url("{{ asset('images/city.jpg') }}") no-repeat top center fixed;
 			   -webkit-background-size: cover;
 			   -moz-background-size: cover;
@@ -40,7 +40,7 @@
 						<i class="fa fa-bars"></i>
 					</a>
 
-					<a class="navbar-brand md" href="#home" ui-scroll-to="home">
+					<a class="navbar-brand md" href="#">
 						<img src="{{ asset('images/logo.png') }}">
 
 						<span class="hidden-folded inline">Social Responsibility Portal</span>
@@ -73,29 +73,6 @@
 				</div>
 			</nav>
 		</header>
-		<div>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="30" height="30" style="position:fixed; z-index:0; left:50%; top: 20%" class="animated fadeInDownBig">
-				<path d="M 48 0 L 24 48 L 0 0 Z" fill="#035063" />
-			</svg>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="10" height="10" style="position:fixed; z-index:0; left:25%; top: 10%" class="animated fadeInDown">
-				<path d="M 48 0 L 24 48 L 0 0 Z" fill="#a88add" />
-			</svg>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="5" height="5" style="position:fixed; z-index:0; left:30%; top: 0%" class="animated fadeInDown">
-				<path d="M 48 0 L 24 48 L 0 0 Z" fill="#f18b00" />
-			</svg>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20" height="20" style="position:fixed; z-index:0; right:5%; top: 30%" class="animated fadeInDown">
-				<path d="M 48 0 L 24 48 L 0 0 Z" fill="#067fa0" />
-			</svg>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="15" height="15" style="position:fixed; z-index:0; left:34.5%; top: 55%" class="animated fadeIn">
-				<path d="M 0 48 L 24 0 L 48 48 Z" fill="#eb4b14" />
-			</svg>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="200" height="200" style="position:fixed; z-index:0; right:20%; top: 70%" class="animated fadeInUp">
-				<path d="M 0 48 L 24 0 L 48 48 Z" fill="rgba(252,193,0,0.1)" />
-			</svg>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="120" height="120" style="position:fixed; z-index:0; left:0%; top: 30%" class="animated fadeInLeftBig">
-				<path d="M 0 48 L 48 24 L 0 0 Z" fill="rgba(0,0,0,0.03)" />
-			</svg>
-		</div>
 		
 		<div class="page-content" id="home">
 			<div class="h-v city row-col">
@@ -159,18 +136,17 @@
 				<div class="p-a-md">
 					<div class="row footer-bottom">
 						<div class="col-sm-8">
-							<small class="text-muted">&copy; Copyright 2017 <a href="#" target="_blank">$team = "just code it";</a>. All rights reserved.</small>
+							<small class="text-muted">&copy; Copyright 2017. All rights reserved.</small>
 						</div>
 						<div class="col-sm-4">
 							<div class="text-sm-right text-xs-left">
-								<strong>My Awesome Budget</strong>
+								<strong><a href="#" target="_blank">$team = "just code it";</a></strong>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</footer>
-		
 
 		<script src="{{ asset('js/home/jquery.js') }}"></script>
 		<script src="{{ asset('js/home/tether.min.js') }}"></script>
