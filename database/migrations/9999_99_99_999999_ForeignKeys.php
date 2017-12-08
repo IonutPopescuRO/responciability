@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CustomUser extends Migration
+class ForeignKeys extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,7 @@ class CustomUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('age');
-            $table->enum('gender', ['Male', 'Female', 'Other']);
-            $table->string('avatar')->nullable();
-            $table->string('lname');   
+            $table->foreign('role')->references('id')->on('roles');
         });
     }
 
@@ -27,9 +24,9 @@ class CustomUser extends Migration
      * @return void
      */
     public function down()
-    {
+    {   
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['age', 'gender', 'avatar', 'lname']);
+            $table->dropForeign('users_role_foreign');
         });
     }
 }
