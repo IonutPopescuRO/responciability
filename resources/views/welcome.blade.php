@@ -174,13 +174,55 @@
     var map, infoWindow, marker;
 
     function initMap() {
+        
+        var iniLat, iniLng;
+        iniLat = 45.7489;
+        iniLng = 21.2087;
+        
         map = new google.maps.Map(document.getElementById('map'), {
             center: {
-                lat: 45.7489,
-                lng: 21.2087
+                lat: iniLat,
+                lng: iniLng
             },
             zoom: 11
         });
+        
+        @foreach($issues as $issue)
+
+            var contentString{{$loop->iteration}} = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<a href="{{route("viewIssue", ["id" => $issue->id])}}"><h4 id="firstHeading" class="firstHeading">{{$issue->title}}</h4></a>'+
+            '<div id="bodyContent">'+
+            '<p>{{$issue->description}}</p>'+
+            '<img class="img-responsive" style="width: 100%;" src="{{asset($issue->image)}}" />'+
+            '</div>'+
+            '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+              content: contentString{{$loop->iteration}}
+            });
+
+            var marker{{$loop->iteration}} = new google.maps.Marker({
+              position: {
+                    lat: {{ $issue->lat }},
+                    lng: {{ $issue->lng }}
+              },
+              map: map,
+              draggable: false,
+              clickable: true,
+              animation: google.maps.Animation.DROP
+            });
+
+            marker{{$loop->iteration}}.addListener('click', function() {
+              infowindow.close(); // Close previously opened infowindow
+              infowindow.setContent(contentString{{$loop->iteration}});
+              infowindow.open(map, marker{{$loop->iteration}});
+            });
+
+        @endforeach
+
+        infoWindow = new google.maps.InfoWindow;
 
         var cityCircle = new google.maps.Circle({
 	      strokeColor: '#d9534f',
@@ -192,52 +234,20 @@
 	      center: {lat: 45.7489, lng: 21.2087},
 	      radius: 5000
 	    });
-
-	    var marker1 = new google.maps.Marker({
-          position: {lat:45.760448, lng:21.202340},
-          map: map
-        });
-
-        var marker2 = new google.maps.Marker({
-          position: {lat:45.746501, lng:21.236932},
-          map: map
-        });
-
-        var marker3 = new google.maps.Marker({
-          position: {lat:45.739459, lng:21.202994},
-          map: map
-        });
-
-        var marker4 = new google.maps.Marker({
-          position: {lat:45.736459, lng:21.212994},
-          map: map
-        });
-
-        var marker4 = new google.maps.Marker({
-          position: {lat:45.735659, lng:21.212214},
-          map: map
-        });
-
-        var marker6 = new google.maps.Marker({
-          position: {lat:45.765659, lng:21.212214},
-          map: map
-        });
-
-        var marker6 = new google.maps.Marker({
-          position: {lat:45.745659, lng:21.202214},
-          map: map
-        });
-
-        var marker6 = new google.maps.Marker({
-          position: {lat:45.725595, lng:21.160641},
-          map: map
-        });
-
-        
-
-
     }
 
+    function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    }
+
+    function handleEvent() {
+        console.log(marker);
+        $('#location').val(marker.position.lat()+';'+marker.position.lng());
+    }
 
 </script>
 
