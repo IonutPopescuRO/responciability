@@ -13,6 +13,35 @@
 
 @section('content')
 <div class="container">
+
+<div class="row">
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="icon-big text-center icon-warning">
+                            <i class="fa fa-user text-success" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="numbers">
+                            <p class="card-category">Errors</p>
+                            <h4 class="card-title">23</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-clock-o"></i> In the last hour
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="row">
         <div class="col-md-10">
             <h2> Active issues in your area : </h2>
