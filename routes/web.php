@@ -44,5 +44,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::post('issue/mark/{id}', 'IssueController@mark')->name('mark');
 
-	Route::Get('admin/stats', 'AdminIssuesController@stats')->name('stats');
+	Route::get('admin/stats', 'AdminIssuesController@stats')->name('stats');
+
+	Route::post('/issue/comment/{id}', 'IssueController@addComment')->name('comment');
 });

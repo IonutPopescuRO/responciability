@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Response;
 
 use App\Issue;
 use App\Vote;
+use App\Comment;
 use Auth;
 
 class IssueController extends Controller
@@ -186,6 +187,26 @@ class IssueController extends Controller
                 'code' => 200,
                 'status' => 'marked',
             ], 200); 
+    }
+
+    public function addComment(Request $request, $id)
+    {   
+        $this->validate($request, [
+            'body' => 'required'
+        ]);
+        $input = $request->all();
+        
+        $comment = Comment::create([
+            'user_id' => Auth::user()->id,
+            'issue_id' => $id,
+            'body' => $input['body']
+        ]);
+
+        return Response::json([
+            'code' => 200,
+            'status' => 'added',
+        ], 200); 
+
     }
 
 }

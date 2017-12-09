@@ -1,0 +1,17 @@
+ii  libapache2-mod-php                              1:7.0+44                                       all          server-side, HTML-embedded scripting language (Apache 2 module) (default)
+ii  libapache2-mod-php7.0                           7.0.18-0ubuntu0.16.10.1                        amd64        server-side, HTML-embedded scripting language (Apache 2 module)
+ii  php                                             1:7.0+44                                       all          server-side, HTML-embedded scripting language (default)
+ii  php-common                                      1:44                                           all          Common files for PHP packages
+ii  php-mcrypt                                      1:7.0+44                                       all          libmcrypt module for PHP [default]
+ii  php-mysql                                       1:7.0+44                                       all          MySQL module for PHP [default]
+ii  php-xml                                         1:7.0+44                                       all          DOM, SimpleXML, WDDX, XML, and XSL module for PHP [default]
+ii  php7.0                                          7.0.18-0ubuntu0.16.10.1                        all          server-side, HTML-embedded scripting language (metapackage)
+ii  php7.0-cli                                      7.0.18-0ubuntu0.16.10.1                        amd64        command-line interpreter for the PHP scripting language
+ii  php7.0-common                                   7.0.18-0ubuntu0.16.10.1                        amd64        documentation, examples and common module for PHP
+ii  php7.0-json                                     7.0.18-0ubuntu0.16.10.1                        amd64        JSON module for PHP
+ii  php7.0-mbstring                                 7.0.18-0ubuntu0.16.10.1                        amd64        MBSTRING module for PHP
+ii  php7.0-mcrypt                                   7.0.18-0ubuntu0.16.10.1                        amd64        libmcrypt module for PHP
+ii  php7.0-mysql                                    7.0.18-0ubuntu0.16.10.1                        amd64        MySQL module for PHP
+ii  php7.0-opcache                                  7.0.18-0ubuntu0.16.10.1                        amd64        Zend OpCache module for PHP
+ii  php7.0-readline                                 7.0.18-0ubuntu0.16.10.1                        amd64        readline module for PHP
+ii  php7.0-xml                                      7.0.18-0ubuntu0.16.10.1                        amd64        DOM, SimpleXML, WDDX, XML, and XSL module for PHP

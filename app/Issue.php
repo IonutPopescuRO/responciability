@@ -34,4 +34,9 @@ class Issue extends Model
     {
         return $this->belongsTo('App\Status', 'status');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment', 'issue_id')->orderBy('created_at' , 'desc');
+    }
 }
