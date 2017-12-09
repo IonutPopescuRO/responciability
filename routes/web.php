@@ -29,4 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('issue/create', 'IssueController@create')->name('createIssue');
 
     Route::get('issue/list', 'IssueController@list')->name('listIssues');
+
+    Route::post('issue/upvote/{id}' , 'IssueController@upvote')->name('upvote');
+
+    Route::post('issue/downvote/{id}' , 'IssueController@downvote')->name('downvote');
 });

@@ -16,7 +16,30 @@
     <div class="col-md-8">
         <div class="card">
             <div class="header">
-                <h4 class="title">{{$issue->title}}</h4>
+                <h4 class="title">{{$issue->title}} &nbsp
+                @auth
+                @if(Auth::user()->id != $issue->creator->id)  
+                <span class="pull-right">
+                <a href="#" onclick="downvote();">
+                	<i id="dislike-icon" style="color:#fb404b" class="fa @if($status=='liked' || $status=='neutral') fa-thumbs-o-down @else fa-thumbs-down @endif "></i>
+                </a> <span id="downvotes-count">{{count($issue->downvotes())}}</span> &nbsp&nbsp 
+                <a href="#" onclick="upvote()">
+                	<i id="like-icon" style="color:#87cb16" class="fa @if($status=='disliked' || $status=='neutral') fa-thumbs-o-up @else fa-thumbs-up @endif"></i>
+                </a> <span id="upvotes-count">{{count($issue->upvotes())}} </span>
+                </span>
+                @endif
+                @endauth
+
+                @guest
+                	<span class="pull-right">
+                	<i id="dislike-icon" style="color:#fb404b" class="fa fa-thumbs-o-down"></i> 
+                	{{count($issue->downvotes())}}
+                  &nbsp&nbsp 
+                	<i id="like-icon" style="color:#87cb16" class="fa fa-thumbs-o-up pull-right"></i>
+                	{{count($issue->upvotes())}}
+                	</span>
+                @endguest
+                </h4>
             </div>
             <div class="content">
 
@@ -119,6 +142,105 @@
           infowindow.open(map2, marker);
         });
 	}
+
+	function upvote()
+		{	
+			$.ajax({
+				type: 'POST',
+				url: "{{ route('upvote',['id' => $issue->id]) }}" ,
+				headers: {
+	            	'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+	            	'Cache-Control': ' no-store, no-cache, must-revalidate, post-check=0, pre-check=0"',
+	            	'Pragma': 'no-cache',
+	            	'Expires': 'Sat, 26 Jul 1997 05:00:00 GMT',
+	        	},
+	        	data: {a:1},
+	        	processData: false,  // tell jQuery not to process the data
+  				contentType: false,   // tell jQuery not to set contentType
+  				cache:false,
+	        	success: function(data)
+	        	{
+
+                     if(data.code == 200)
+                     {	
+                     	$('#like-icon').attr("class","fa fa-thumbs-up ");
+                     	$('#dislike-icon').attr("class","fa fa-thumbs-o-down ");
+
+                     	@if($status=='neutral')
+
+                     	$current = Number($('#upvotes-count').html());
+                     	$('#upvotes-count').html($current+1);
+
+                     	@elseif($status=='disliked')
+
+                     	$current = Number($('#upvotes-count').html());
+                     	$('#upvotes-count').html($current+1);
+
+                     	$current = Number($('#downvotes-count').html());
+                     	$('#downvotes-count').html($current-1);
+
+                     	@endif
+
+                     	location.reload();
+                     }
+
+	        	},
+	        	error: function (request, status, error) {
+			        alert(request.responseText);
+			    }
+
+			});
+
+		}
+	function downvote()
+		{	
+			$.ajax({
+				type: 'POST',
+				url: "{{ route('downvote',['id' => $issue->id]) }}" ,
+				headers: {
+	            	'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+	            	'Cache-Control': ' no-store, no-cache, must-revalidate, post-check=0, pre-check=0"',
+	            	'Pragma': 'no-cache',
+	            	'Expires': 'Sat, 26 Jul 1997 05:00:00 GMT',
+	        	},
+	        	data: {a:1},
+	        	processData: false,  // tell jQuery not to process the data
+  				contentType: false,   // tell jQuery not to set contentType
+  				cache:false,
+	        	success: function(data)
+	        	{
+
+                     if(data.code == 200)
+                     {	
+                     	$('#dislike-icon').attr("class","fa fa-thumbs-down ");
+                     	$('#like-icon').attr("class","fa fa-thumbs-o-up ");
+
+                     	@if($status=='neutral')
+
+						$current = Number($('#downvotes-count').html());
+						$('#downvotes-count').html($current+1);
+
+						@elseif($status=='liked')
+
+						$current = Number($('#downvotes-count').html());
+						$('#downvotes-count').html($current+1);
+
+						$current = Number($('#upvotes-count').html());
+						$('#upvotes-count').html($current-1);
+
+						@endif
+
+						location.reload();
+                     }
+
+	        	},
+	        	error: function (request, status, error) {
+			        alert(request.responseText);
+			    }
+
+			});
+
+		}
 
 </script>
 

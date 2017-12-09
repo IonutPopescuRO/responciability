@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+
 use App\Issue;
+use App\Vote;
 use Auth;
 
 class IssueController extends Controller
@@ -67,8 +70,83 @@ class IssueController extends Controller
     {
     	$issue = Issue::find($id);
 
+        $check = Vote::where(['user_id' => Auth::user()->id, 'issue_id' => $id])->get();
+
+        if(!count($check))
+            $status='neutral';
+        else if($check[0]->type==1)
+            $status='liked';
+        else $status='disliked';
+
     	return view('issue.view', [
-    		'issue' => $issue
+    		'issue' => $issue,
+            'status' => $status
     	]);
     }
+
+    public function upvote(Request $request, $id)
+    {       
+        $user = Auth::user();
+
+        $check = Vote::where(['user_id' => $user->id, 'issue_id' => $id])->get();
+
+        $issue=Issue::find($id);
+
+        if(!count($check))
+        {
+            
+            $issueLike = new Vote();
+            $issueLike->user_id = $user->id;
+            $issueLike->issue_id = $issue->id;
+            $issueLike->type = 1;
+            $issueLike->save();
+
+        } else {
+            $vote = $check[0];
+            if($vote->type=='0')
+            {
+                $vote->type = 1;
+                $vote->save();
+            }
+        }
+
+        return Response::json([
+                'code' => 200,
+                'status' => 'upvoted',
+            ], 200); 
+        
+    }
+
+    public function downvote(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        $check = Vote::where(['user_id' => $user->id, 'issue_id' => $id])->get();
+
+        $issue=Issue::find($id);
+
+        if(!count($check))
+        {
+            
+            $issueLike = new Vote();
+            $issueLike->user_id = $user->id;
+            $issueLike->issue_id = $issue->id;
+            $issueLike->type = 0;
+            $issueLike->save();
+
+        } else {
+            $vote = $check[0];
+            if($vote->type=='1')
+            {
+                $vote->type = 0;
+                $vote->save();
+            }
+        }
+
+        return Response::json([
+                'code' => 200,
+                'status' => 'downvoted',
+            ], 200); 
+    }
+
 }
