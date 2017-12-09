@@ -40,7 +40,7 @@
 									<td>{{ $user->email }}</td>
 									<td>{{count($user->issues)}}</td>
 									<td>
-										<button type="button" class="btn btn-sm btn-info btn-outline">
+										<a href="{{ url('admin/user',['id' => $user->id]) }}" class="btn btn-sm btn-info btn-outline">
 											<span class="btn-label">
 												<i class="fa fa-eye"></i>
 											</span>
