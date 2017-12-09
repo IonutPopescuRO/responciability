@@ -60,46 +60,28 @@
 							<p>Dashboard</p>
 						</a>
 					</li>
+					<li {{{ (Request::is('issue/create') ? 'class=active' : '') }}}>
+						<a href="{{ url('issue/create') }}">
+							<i class="pe-7s-user"></i>
+							<p>Report an issue</p>
+						</a>
+					</li>
 					<li {{{ (Request::is('profile') ? 'class=active' : '') }}}>
 						<a href="{{ route('profile') }}">
 							<i class="pe-7s-user"></i>
 							<p>User Profile</p>
 						</a>
 					</li>
-					<li>
-						<a href="table.html">
+					<li {{{ (Request::is('issue/list') ? 'class=active' : '') }}}>
+						<a href="{{ url('issue/list') }}">
 							<i class="pe-7s-note2"></i>
-							<p>Table List</p>
-						</a>
-					</li>
-					<li>
-						<a href="typography.html">
-							<i class="pe-7s-news-paper"></i>
-							<p>Typography</p>
-						</a>
-					</li>
-					<li>
-						<a href="icons.html">
-							<i class="pe-7s-science"></i>
-							<p>Icons</p>
-						</a>
-					</li>
-					<li>
-						<a href="maps.html">
-							<i class="pe-7s-map-marker"></i>
-							<p>Maps</p>
-						</a>
-					</li>
-					<li>
-						<a href="notifications.html">
-							<i class="pe-7s-bell"></i>
-							<p>Notifications</p>
+							<p>My issues list</p>
 						</a>
 					</li>
 					<li class="active-pro">
-						<a href="upgrade.html">
+						<a href="{{ url('issue/create') }}">
 							<i class="pe-7s-rocket"></i>
-							<p>Upgrade to PRO</p>
+							<p>Report an issue</p>
 						</a>
 					</li>
 				@else
@@ -116,6 +98,24 @@
 						</a>
 					</li>
 				@endauth
+				
+				@if (!Auth::guest() && Auth::user()->role==2)
+					<hr>
+					<li {{{ (Request::is('admin/users') ? 'class=active' : '') }}}>
+						<a href="{{ url('admin/users') }}">
+							<i class="pe-7s-users"></i>
+							<p>Users Administration</p>
+						</a>
+					</li>
+					<li {{{ (Request::is('admin/issues') ? 'class=active' : '') }}}>
+						<a href="{{ url('admin/issues') }}">
+							<i class="pe-7s-help2"></i>
+							<p>Issues Administration</p>
+						</a>
+					</li>
+				@else
+					<li><a href="{{ url('/home') }}">Mein Profil</a></li>
+				@endif
             </ul>
         </div>
     </div>
