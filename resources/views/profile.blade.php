@@ -90,7 +90,7 @@
             <div class="content">
                 <div class="author">
                     <a href="#">
-                        <img class="avatar border-gray" src="{{ \Auth::user()->avatar }}" alt="...">
+                        <img class="avatar border-gray" src="{{ asset(Auth::user()->avatar) }}" alt="...">
 
                         <h4 class="title">{{ Auth::user()->name }} {{ Auth::user()->lname }}<br>
                                          <small>{{ Auth::user()->email }}</small>
@@ -101,6 +101,9 @@
 				<hr>
                 <p class="description text-center">
 					Account created on {{ Auth::user()->created_at }}
+                </p>
+                <p class="description text-center">
+                    You submitted {{count(Auth::user()->issues)}} issues so far.
                 </p>
             </div>
         </div>
