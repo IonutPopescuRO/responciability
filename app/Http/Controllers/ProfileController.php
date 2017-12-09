@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use App\User;
+use App\AreaOfInterest;
 
 class ProfileController extends Controller
 {
@@ -45,6 +46,45 @@ class ProfileController extends Controller
 		
 		$user->role = $request->input('role');
 		$user->save();
+
+        return back();
+    }
+	
+    public function updateProfile(Request $request)
+    {
+		$user = Auth::user();
+
+		$v = explode(';' , $request['location']);
+        $ulat = $v[0];
+        $ulng = $v[1];
+
+		$user->name = $request->input('name');
+		$user->lname = $request->input('lname');
+		$user->age = $request->input('age');
+		$user->gender = $request->input('gender');
+		
+		if($user->lat!==$ulat || $user->lng!==$ulng)
+		{
+			$user->lat = $ulat;
+			$user->lng = $ulng;
+		}
+		
+		$user->save();
+		
+		AreaOfInterest::where(array('user_id' => $user->id))->delete();
+		
+        foreach($request['area'] as $vertice)
+        {
+            $v = explode(';', $vertice);
+            $lat = $v[0];
+            $lng = $v[1];
+
+            AreaOfInterest::create([
+                'lat' => $lat,
+                'lng' => $lng,
+                'user_id' => $user->id,
+            ]);
+        }
 
         return back();
     }

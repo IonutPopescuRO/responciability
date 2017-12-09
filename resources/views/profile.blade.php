@@ -20,7 +20,8 @@
                 <h4 class="title">Edit Profile</h4>
             </div>
             <div class="content">
-                <form>
+                <form method="POST" action="{{ route('updateProfile') }}" enctype="multipart/form-data">
+					{{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -34,13 +35,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input class="form-control" placeholder="Company" value="{{ Auth::user()->name }}" type="text">
+                                <input class="form-control" placeholder="Company" value="{{ Auth::user()->name }}" type="text" name="name">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input class="form-control" placeholder="Last Name" value="{{ Auth::user()->lname }}" type="text">
+                                <input class="form-control" placeholder="Last Name" value="{{ Auth::user()->lname }}" type="text" name="lname">
                             </div>
                         </div>
                     </div>
@@ -49,7 +50,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Age</label>
-                                <input class="form-control" placeholder="City" value="{{ Auth::user()->age }}" type="number">
+                                <input class="form-control" placeholder="Age" value="{{ Auth::user()->age }}" type="number" name="age">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -78,6 +79,14 @@
                             </div>
                         </div>
                     </div>
+					
+                    <div id="vertices">
+						<input type="hidden" name="location" id="location" value="{{ Auth::user()->lat }};{{ Auth::user()->lng }}" />
+						<?php foreach($user_area as $coordinates) 
+								print '<input id="area" name="area[]" value="'.$coordinates->lat.';'.$coordinates->lng.'" type="hidden">
+								'; ?>
+                    </div>
+					
                     <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
                     <div class="clearfix"></div>
                 </form>
@@ -92,7 +101,7 @@
             <div class="content">
                 <div class="author">
                     <a href="#">
-                        <img class="avatar border-gray" src="{{ asset(Auth::user()->avatar) }}" alt="...">
+                        <img class="avatar border-gray" src="{{ asset(Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}">
 
                         <h4 class="title">{{ Auth::user()->name }} {{ Auth::user()->lname }}<br>
                                          <small>{{ Auth::user()->email }}</small>
@@ -117,8 +126,43 @@
 
 @section('scripts')
 <script>
-    var map, infoWindow, marker;
+    var map, infoWindow, marker, metros, drawingManager;
 
+      function CenterControl(controlDiv, map) {
+
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to recenter the map';
+        controlDiv.appendChild(controlUI);
+
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '16px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '5px';
+        controlText.style.paddingRight = '5px';
+        controlText.innerHTML = 'Reset Map';
+        controlUI.appendChild(controlText);
+
+        controlUI.addEventListener('click', function() {
+          initMap();
+		  metros.setMap(null);
+		  
+			var elms = document.querySelectorAll("[id='area']");
+
+			for(var i = 0; i < elms.length; i++) 
+			  elms[i].remove(); // <-- whatever you need to do here.
+        });
+
+      }
+	
     function initMap() {
 		
 		var iniLat, iniLng;
@@ -148,7 +192,7 @@
 
 		var coords = [<?php foreach($user_area as $coordinates) print "{lat: ".$coordinates->lat.", lng: ".$coordinates->lng." },"; ?>];
         //initialize area draw
-        var drawingManager = new google.maps.drawing.DrawingManager({
+        drawingManager = new google.maps.drawing.DrawingManager({
             drawingMode: google.maps.drawing.OverlayType.POLYGON,
             drawingControl: true,
             drawingControlOptions: {
@@ -179,7 +223,7 @@
 		});
 		metros.setMap(map);
 
-        var marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
           position: {
                 lat: {{ Auth::user()->lat }},
                 lng: {{ Auth::user()->lng }}
@@ -188,7 +232,9 @@
           draggable: true,
           animation: google.maps.Animation.DROP
         });
-		
+		marker.addListener('click', toggleBounce);
+		marker.addListener('dragend', handleEvent);
+				
         google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon) {
             
             drawingManager.setOptions({
@@ -201,12 +247,19 @@
                 var lat = this.lat();
                 var lng = this.lng();
 
-                $('#vertices').append('<input name="area[]" type="hidden" value="'+lat+';'+lng+'">');
+                $('#vertices').append('<input id="area" name="area[]" type="hidden" value="'+lat+';'+lng+'">');
             })
 
             console.log(vertices);
 
         });
+		
+        var centerControlDiv = document.createElement('div');
+        var centerControl = new CenterControl(centerControlDiv, map);
+
+        centerControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
     }
 
     function toggleBounce() {
@@ -221,7 +274,6 @@
         console.log(marker);
         $('#location').val(marker.position.lat()+';'+marker.position.lng());
     }
-
 </script>
 
 <script type="text/javascript"
