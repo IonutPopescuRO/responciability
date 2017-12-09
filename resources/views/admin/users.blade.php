@@ -18,9 +18,6 @@
                 <h4 class="title">Users Administration</h4>
             </div>
             <div class="content">
-
-
-			
 				<div class="card-body table-full-width table-responsive">
 					<table class="table table-hover table-striped">
 						<thead>

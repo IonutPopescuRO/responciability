@@ -113,8 +113,6 @@
 							<p>Issues Administration</p>
 						</a>
 					</li>
-				@else
-					<li><a href="{{ url('/home') }}">Mein Profil</a></li>
 				@endif
             </ul>
         </div>

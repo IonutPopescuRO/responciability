@@ -36,5 +36,7 @@ Route::middleware(['auth'])->group(function () {
 	
 	Route::get('admin/users', 'AdminUsersController@index');
 	
+	Route::get('admin/user/{userid}', 'ProfileController@admin')->name('user');
+
 	Route::get('admin/issues', 'AdminIssuesController@index');
 });

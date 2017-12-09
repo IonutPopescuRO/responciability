@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use App\User;
+
 class ProfileController extends Controller
 {
 	
@@ -32,5 +34,24 @@ class ProfileController extends Controller
 							 ->get();
 							 
         return view('profile', ['user_area' => $user_area]);
+    }
+	
+    public function admin($userId = null, Request $request)
+    {
+		if(Auth::user()->role!=2 || !User::where('id',  $userId)->count())
+			return redirect()->route('home');
+
+		$user_area = DB::table('user_area')
+							 ->select('lat', 'lng')
+							 ->where('user_id', '=', $userId)
+							 ->get();
+							 
+		$user = User::findOrFail($userId);
+		
+		
+		$user->role = $request->input('role');
+		$user->save();
+
+        return view('admin/profile', ['user_area' => $user_area, 'user_id' => $userId, 'user' => $user]);
     }
 }
