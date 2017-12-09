@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('admin/users', 'AdminUsersController@index');
 	
 	Route::post('admin/u/{userid}/makeadmin', 'ProfileController@admin')->name('makeAdmin');
+	
+	Route::post('profile/updateprofile', 'ProfileController@updateProfile')->name('updateProfile');
 
 	Route::get('admin/u/{userid}', 'ProfileController@viewAsAdmin')->name('viewAsAdmin');
 

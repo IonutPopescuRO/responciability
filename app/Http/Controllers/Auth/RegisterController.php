@@ -106,7 +106,7 @@ class RegisterController extends Controller
         ]);
 
         foreach($data['area'] as $vertice)
-        {   
+        {
             $v = explode(';', $vertice);
             $lat = $v[0];
             $lng = $v[1];

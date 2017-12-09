@@ -53,7 +53,7 @@
                             <label for="age" class="col-md-4 control-label">Age</label>
 
                             <div class="col-md-6">
-                                <input id="age" type="text" class="form-control" name="age" value="{{ old('age') }}" required autofocus>
+                                <input id="age" type="number" class="form-control" name="age" value="{{ old('age') }}" required autofocus>
 
                                 @if ($errors->has('age'))
                                     <span class="help-block">
@@ -193,6 +193,40 @@
 <script>
     var map, infoWindow, marker;
 
+      function CenterControl(controlDiv, map) {
+
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to recenter the map';
+        controlDiv.appendChild(controlUI);
+
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '16px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '5px';
+        controlText.style.paddingRight = '5px';
+        controlText.innerHTML = 'Reset Map';
+        controlUI.appendChild(controlText);
+
+        controlUI.addEventListener('click', function() {
+          initMap();
+		  
+			var elms = document.querySelectorAll("[id='area']");
+
+			for(var i = 0; i < elms.length; i++) 
+			  elms[i].remove(); // <-- whatever you need to do here.
+        });
+
+      }
+	  
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: {
@@ -279,11 +313,18 @@
                 var lat = this.lat();
                 var lng = this.lng();
 
-                $('#vertices').append('<input name="area[]" type="hidden" value="'+lat+';'+lng+'">');
+                $('#vertices').append('<input id="area" name="area[]" type="hidden" value="'+lat+';'+lng+'">');
             })
 
             console.log(vertices);
 
+			
+			var centerControlDiv = document.createElement('div');
+			var centerControl = new CenterControl(centerControlDiv, map);
+
+			centerControlDiv.index = 1;
+			map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+		
         });
 
     }
