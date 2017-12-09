@@ -96,7 +96,7 @@
 
 
 
-    <div class="col-md-12">
+    <div class="col-md-10">
 	
 		<div class="card">
 			<div class="header">

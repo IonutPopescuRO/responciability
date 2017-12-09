@@ -14,7 +14,7 @@ class IssueStatus extends Migration
     public function up()
     {
         Schema::table('issues', function (Blueprint $table) {
-            $table->integer('status');
+            $table->integer('status')->unsigned();
         });
     }
 

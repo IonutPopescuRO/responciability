@@ -16,6 +16,7 @@ class StatusLists extends Migration
         Schema::create('issue_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->timestamps();
         });
     }
 
