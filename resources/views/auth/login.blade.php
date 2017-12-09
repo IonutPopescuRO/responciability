@@ -43,11 +43,17 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" style="none" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
+								<table>
+									<tr>
+										<td>
+											<div class="checkbox">
+												<input id="checkbox" checked="" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+												<label for="checkbox"></label>
+											</div>
+										</td>
+										<td>Remember Me</td>
+									</tr>
+								</table>
                             </div>
                         </div>
 

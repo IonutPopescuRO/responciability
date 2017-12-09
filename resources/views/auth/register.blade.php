@@ -27,7 +27,6 @@
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -63,28 +62,38 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
+						
+						<div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
                             <label for="gender" class="col-md-4 control-label">Gender</label>
 
                             <div class="col-md-6">
-                                <div class="radio">
-                                  <label><input type="radio" name="gender" value="Male">Male</label>
-                                </div>
-                                <div class="radio">
-                                  <label><input type="radio" name="gender" value="Female">Female</label>
-                                </div>
-                                <div class="radio">
-                                  <label><input type="radio" name="optradio" value="Other">Other</label>
-                                </div>  
-
+								<div class="checkbox-radios">
+									<div class="form-check form-check-radio">
+										<label class="form-check-label">
+											<input class="form-check-input" name="gender" id="Male" value="Male" checked="" type="radio">
+											<span class="form-check-sign"></span> Male
+										</label>
+									</div>
+									<div class="form-check form-check-radio">
+										<label class="form-check-label">
+											<input class="form-check-input" name="gender" id="Female" value="Female" type="radio">
+											<span class="form-check-sign"></span> Female
+										</label>
+									</div>
+									<div class="form-check form-check-radio">
+										<label class="form-check-label">
+											<input class="form-check-input" name="gender" id="Other" value="Other" type="radio">
+											<span class="form-check-sign"></span> Other
+										</label>
+									</div>
+								</div>
                                 @if ($errors->has('gender'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('gender') }}</strong>
                                     </span>
                                 @endif
-                            </div>
-                        </div>
+							</div>
+						</div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
