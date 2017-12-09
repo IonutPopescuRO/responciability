@@ -49,4 +49,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('admin/stats', 'AdminIssuesController@stats')->name('stats');
 
 	Route::post('/issue/comment/{id}', 'IssueController@addComment')->name('comment');
+
+	Route::post('/user/approve', 'AdminUsersController@approve')->name('approve');
+
+	Route::post('/user/ban', 'AdminUsersController@ban')->name('ban');
 });

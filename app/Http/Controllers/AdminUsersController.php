@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use App\User;
+use Illuminate\Support\Facades\Response;
+
 class AdminUsersController extends Controller
 {
 	
@@ -32,5 +34,39 @@ class AdminUsersController extends Controller
 		$users = User::paginate(20);
 
         return view('admin/users', ['users' => $users]);
+    }
+
+    public function approve(Request $request)
+    {
+        $input = $request->all();
+
+        $id = $input['uid'];
+
+        $user = User::find($id);
+
+        $user->accepted = 1;
+        $user->save();
+
+        return Response::json([
+                'code' => 200,
+                'status' => 'approved',
+            ], 200); 
+    }
+
+    public function ban(Request $request)
+    {
+        $input = $request->all();
+
+        $id = $input['uid'];
+
+        $user = User::find($id);
+
+        $user->accepted = 0;
+        $user->save();
+
+        return Response::json([
+                'code' => 200,
+                'status' => 'banned',
+            ], 200); 
     }
 }
