@@ -50,7 +50,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Description</label>
-                                <p> {{$issue->description}} </p>
+                                <p style="word-break: break-all;"> {{$issue->description}} </p>
                             </div>
                         </div>
                     </div>

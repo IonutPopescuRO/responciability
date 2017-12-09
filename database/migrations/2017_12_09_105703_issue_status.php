@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class IssueUserId extends Migration
+class IssueStatus extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class IssueUserId extends Migration
     public function up()
     {
         Schema::table('issues', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
+            $table->integer('status');
         });
     }
 
@@ -26,7 +26,7 @@ class IssueUserId extends Migration
     public function down()
     {
         Schema::table('issues', function (Blueprint $table) {
-            $table->dropColumn(['user_id']);
+            $table->dropColumn(['status']);
         });
     }
 }
