@@ -92,12 +92,22 @@
     </div>
 </div>
 
-    <div class="row">
-        <div class="col-md-10">
-            <h2> Active issues in your area : </h2>
-            <div id="map"></div>
-        </div>
+<div class="row">
+
+
+
+    <div class="col-md-12">
+	
+		<div class="card">
+			<div class="header">
+				<h4 class="title"> Active issues in your area : </h4>
+			</div>
+			<div class="content">
+				<div id="map"></div>
+			</div>
+		</div>
     </div>
+</div>
 </div>
 @endsection
 
