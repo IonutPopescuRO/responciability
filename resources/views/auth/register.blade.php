@@ -150,7 +150,7 @@
                         </div>
 
                         <div id="vertices">
-                            <input type="hidden" name="location" id="location" />
+                            <input type="hidden" name="location" id="location" value="45.7489;21.2087" />
                         </div>
 
                         <div class="form-group">
@@ -291,7 +291,7 @@
 </script>
 
 <script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAApItPR-oxvnmOLsXyievDTiNuBM6jQ4s&libraries=drawing&callback=initMap" async defer>
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWp9GONdDBwwU7eBcaY8G7DgbDDMZX6hk&libraries=drawing&callback=initMap" async defer>
 </script>
 
 <script src="{{ asset('js/home/jquery.js') }}"></script>
