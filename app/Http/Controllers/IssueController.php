@@ -40,7 +40,8 @@ class IssueController extends Controller
         	'lat' => $ulat,
         	'lng' => $ulng,
         	'user_id' => Auth::user()->id,
-        	'image' => ''
+        	'image' => '',
+            'status' => 2,
         ]);
 
         if($request->hasFile('image')) {

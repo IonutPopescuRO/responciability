@@ -8,7 +8,7 @@ class Issue extends Model
 {
     protected $table = 'issues';
 
-    protected $fillable = ['title','description','lat','lng','user_id','image'];
+    protected $fillable = ['title','description','lat','lng','user_id','image', 'status'];
 
     public function creator()
     {
