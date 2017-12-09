@@ -16,6 +16,7 @@
        .ct-series-b .ct-slice-pie, .ct-series-b .ct-area {
           fill:#fb404b;
        }
+
 </style>
 @endsection
 
@@ -139,10 +140,81 @@
     </div>
 
 </div>
+<label for="exampleInputEmail1">Add comment</label>
+<div class="row">
+    <div class="col-md-7">
+        <div class="form-group">
+            
+            <input class="form-control" id="message" placeholder="Comment" type="text" name="message" required>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-info" id="commentButton" > Add </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8" id="comments-container">
+        @foreach($issue->comments as $comment)
+          <div class="btn btn-outline pull-left" style="width:100%;text-align:left;margin-bottom:3px;clear:left;white-space: normal;">
+                  <div class="row"> 
+                  <div class="col-md-1">
+                  <img src="{{asset($comment->creator->avatar)}}" class="img-responsive img-circle" style="width:30px;height:auto;" /> 
+                  </div>
+                  <div class="col-md-11">
+                  {{$comment->creator->name}} {{$comment->creator->lname}} : {{$comment->body}} 
+                  </div>
+                 </div>
+                 </div><br>
+        @endforeach
+    </div>
+</div>
 
 @endsection
 
 @section('scripts')
+
+<script src="{{asset('js/fancywebsocket.js')}}"> </script>
+
+<script>
+    var Server;
+
+    function log( text ) {
+
+      var elem =  '<div class="btn btn-outline btn-wd" style="width:100%;text-align:left;margin-bottom:3px;white-space: normal;">'+
+                  '<div class="row"> '+
+                  '<div class="col-md-1">'+
+                  '<img src="{{asset(Auth::user()->avatar)}}" class="img-responsive img-circle" style="width:30px;height:auto;"/> '+
+                  '</div><div class="col-md-11">'+
+                  '{{Auth::user()->name}} {{Auth::user()->lname}} : '+text+
+                 '</div></div>'+
+                 '</div><br>';
+
+      $('#comments-container').prepend(elem);
+    }
+
+    function send( text ) {
+      Server.send( 'message', text );
+    }
+
+    $(document).ready(function() {
+      Server = new FancyWebSocket('ws://127.0.0.1:9300');
+
+      $('#commentButton').click(function(e) {
+          var value = $('#message').val();
+
+          saveComment(value);
+        
+      });
+
+      //Log any messages sent from server
+      Server.bind('message', function( payload ) {
+        log( payload );
+      });
+
+      Server.connect();
+    });
+  </script>
 
 <script>
 
@@ -389,6 +461,31 @@
                         location.reload();
                      }
   
+            },
+            error: function (request, status, error) {
+              alert(request.responseText);
+          }
+
+      });
+    }
+
+    function saveComment(value)
+    { 
+        $.ajax({
+        type: 'POST',
+        url: "{{ route('comment',['id' => $issue->id]) }}" ,
+        headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                'Cache-Control': ' no-store, no-cache, must-revalidate, post-check=0, pre-check=0"',
+                'Pragma': 'no-cache',
+                'Expires': 'Sat, 26 Jul 1997 05:00:00 GMT',
+            },
+            data: {body:value},
+            success: function(data)
+            {   
+                  log( value );
+                  send( value );
+                  $('#message').val('');
             },
             error: function (request, status, error) {
               alert(request.responseText);
