@@ -20,7 +20,7 @@
                 <h4 class="title">User Administration</h4>
             </div>
             <div class="content">
-							<form method="POST" action="{{ route('admin/user',['id' => $user_id]) }}" enctype="multipart/form-data">
+							<form method="POST" action="{{ route('makeAdmin',['id' => $user_id]) }}" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-md-9">
 										{{ csrf_field() }}

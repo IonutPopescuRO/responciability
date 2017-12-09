@@ -29,7 +29,7 @@
                         		<td> {{$loop->iteration}} </td>
                         		<td> <a href="{{ route('viewIssue', ['id' => $issue->id]) }}">{{$issue->title}}</a> </td>
                         		<td> {{ str_limit($issue->description,30, '...') }}</td>
-                        		<td> Timisoara, Romania </td>
+                        		<td> {{ $issue->address }} </td>
                         	</tr>
                         	
                         @endforeach

@@ -33,6 +33,7 @@ class IssueController extends Controller
 
         $ulat = $v[0];
         $ulng = $v[1];
+        $address = $this->getAddress($ulat,$ulng);
 
         $issue = Issue::create([
         	'title' => $input['title'],
@@ -42,6 +43,7 @@ class IssueController extends Controller
         	'user_id' => Auth::user()->id,
         	'image' => '',
             'status' => 2,
+            'address' => $address
         ]);
 
         if($request->hasFile('image')) {
@@ -148,6 +150,18 @@ class IssueController extends Controller
                 'code' => 200,
                 'status' => 'downvoted',
             ], 200); 
+    }
+
+    public function getAddress($lat, $lng)
+    {
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$lat.",".$lng."&key=AIzaSyAApItPR-oxvnmOLsXyievDTiNuBM6jQ4s";
+        
+        $response = file_get_contents($url);
+        $json = json_decode($response,true);
+        
+        if(isset($json['results'][0]['formatted_address']))
+            return $json['results'][0]['formatted_address'];
+        else return $lat.' , '.$lng;
     }
 
 }

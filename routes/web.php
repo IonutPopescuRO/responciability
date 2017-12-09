@@ -36,7 +36,9 @@ Route::middleware(['auth'])->group(function () {
 	
 	Route::get('admin/users', 'AdminUsersController@index');
 	
-	Route::get('admin/user/{userid}', 'ProfileController@admin')->name('user');
+	Route::post('admin/u/{userid}/makeadmin', 'ProfileController@admin')->name('makeAdmin');
+
+	Route::get('admin/u/{userid}', 'ProfileController@viewAsAdmin')->name('viewAsAdmin');
 
 	Route::get('admin/issues', 'AdminIssuesController@index');
 });

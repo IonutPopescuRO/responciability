@@ -13,20 +13,6 @@
 
 @section('content')
 
-<?php
-	function getAddress($lat, $lng)
-	{
-		$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$lat.",".$lng."&key=AIzaSyAApItPR-oxvnmOLsXyievDTiNuBM6jQ4s";
-		
-		$response = file_get_contents($url);
-		$json = json_decode($response,true);
-		
-		if(isset($json['results'][0]['formatted_address']))
-			return $json['results'][0]['formatted_address'];
-		else return $lat.' , '.$lng;
-	}
-?>
-
 <div class="row">
         <div class="card">
             <div class="header">
@@ -58,14 +44,16 @@
 									<td>{{ $issue->title }}</td>
 									<td>{{ $issue->description }}</td>
 									<td>{{ $issue->created_at }}</td>
-									<td data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ $issue->lat .' '. $issue->lng }}">{{ getAddress($issue->lat, $issue->lng) }}</td>
+									<td><span data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ $issue->lat .' '. $issue->lng }}">{{$issue->address}}</span></td>
 									<td>
+										<a href="{{route('viewIssue', ['id' => $issue->id])}}">
 										<button type="button" class="btn btn-sm btn-info btn-outline">
 											<span class="btn-label">
 												<i class="fa fa-eye"></i>
 											</span>
 											View issue
 										</button>
+										</a>
 									</td>
 								</tr>
 							@endforeach

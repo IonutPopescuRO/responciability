@@ -40,17 +40,27 @@ class ProfileController extends Controller
     {
 		if(Auth::user()->role!=2 || !User::where('id',  $userId)->count())
 			return redirect()->route('home');
-
-		$user_area = DB::table('user_area')
-							 ->select('lat', 'lng')
-							 ->where('user_id', '=', $userId)
-							 ->get();
 							 
 		$user = User::findOrFail($userId);
 		
-		
 		$user->role = $request->input('role');
 		$user->save();
+
+        return back();
+    }
+
+    public function viewAsAdmin($userId)
+    {   
+
+        if(Auth::user()->role!=2 || !User::where('id',  $userId)->count())
+            return redirect()->route('home');
+
+        $user_area = DB::table('user_area')
+                             ->select('lat', 'lng')
+                             ->where('user_id', '=', $userId)
+                             ->get();
+                             
+        $user = User::findOrFail($userId);
 
         return view('admin/profile', ['user_area' => $user_area, 'user_id' => $userId, 'user' => $user]);
     }
