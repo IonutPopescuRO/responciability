@@ -148,7 +148,7 @@
             '<h4 id="firstHeading" class="firstHeading">{{$issue->title}}</h4>'+
             '<div id="bodyContent">'+
             '<p>{{$issue->description}}</p>'+
-            '<img class="img-responsive" src="{{asset($issue->image)}}" />'+
+            '<img class="img-responsive" style="width: 100%;" src="{{asset($issue->image)}}" />'+
             '</div>'+
             '</div>';
 

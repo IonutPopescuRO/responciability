@@ -93,11 +93,7 @@
 </div>
 
 <div class="row">
-
-
-
-    <div class="col-md-12">
-	
+    <div class="col-md-10">
 		<div class="card">
 			<div class="header">
 				<h4 class="title"> Active issues in your area : </h4>
@@ -139,7 +135,7 @@
             '<a href="{{route("viewIssue", ["id" => $issue->id])}}"><h4 id="firstHeading" class="firstHeading">{{$issue->title}}</h4></a>'+
             '<div id="bodyContent">'+
             '<p>{{$issue->description}}</p>'+
-            '<img class="img-responsive" src="{{asset($issue->image)}}" />'+
+            '<img class="img-responsive" style="width: 100%;" src="{{asset($issue->image)}}" />'+
             '</div>'+
             '</div>';
 
