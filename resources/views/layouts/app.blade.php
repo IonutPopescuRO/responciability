@@ -1,15 +1,15 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.ico')}}">
+	<link rel="icon" type="image/png" href="{{ asset('images/icon.png') }}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Light Bootstrap Dashboard by Creative Tim</title>
+	<title>Responciability</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Bootstrap core CSS     -->
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
@@ -46,60 +46,75 @@
 
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
+                <a href="{{ url('/') }}" class="simple-text">
+                    <img src="{{asset('images/icon.png')}}" width="32px" style="margin-bottom: 10px;"> Responciability
                 </a>
             </div>
 
             <ul class="nav">
-                <li class="active">
-                    <a href="dashboard.html">
-                        <i class="pe-7s-graph"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="user.html">
-                        <i class="pe-7s-user"></i>
-                        <p>User Profile</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="table.html">
-                        <i class="pe-7s-note2"></i>
-                        <p>Table List</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="typography.html">
-                        <i class="pe-7s-news-paper"></i>
-                        <p>Typography</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="icons.html">
-                        <i class="pe-7s-science"></i>
-                        <p>Icons</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="maps.html">
-                        <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="notifications.html">
-                        <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
-                    </a>
-                </li>
-                <li class="active-pro">
-                    <a href="upgrade.html">
-                        <i class="pe-7s-rocket"></i>
-                        <p>Upgrade to PRO</p>
-                    </a>
-                </li>
+				@auth
+					<li {{{ (Request::is('home') ? 'class=active' : '') }}}>
+						<a href="{{ route('home') }}">
+							<i class="pe-7s-graph"></i>
+							<p>Dashboard</p>
+						</a>
+					</li>
+					<li {{{ (Request::is('profile') ? 'class=active' : '') }}}>
+						<a href="{{ route('profile') }}">
+							<i class="pe-7s-user"></i>
+							<p>User Profile</p>
+						</a>
+					</li>
+					<li>
+						<a href="table.html">
+							<i class="pe-7s-note2"></i>
+							<p>Table List</p>
+						</a>
+					</li>
+					<li>
+						<a href="typography.html">
+							<i class="pe-7s-news-paper"></i>
+							<p>Typography</p>
+						</a>
+					</li>
+					<li>
+						<a href="icons.html">
+							<i class="pe-7s-science"></i>
+							<p>Icons</p>
+						</a>
+					</li>
+					<li>
+						<a href="maps.html">
+							<i class="pe-7s-map-marker"></i>
+							<p>Maps</p>
+						</a>
+					</li>
+					<li>
+						<a href="notifications.html">
+							<i class="pe-7s-bell"></i>
+							<p>Notifications</p>
+						</a>
+					</li>
+					<li class="active-pro">
+						<a href="upgrade.html">
+							<i class="pe-7s-rocket"></i>
+							<p>Upgrade to PRO</p>
+						</a>
+					</li>
+				@else
+					<li {{{ (Request::is('login') ? 'class=active' : '') }}}>
+						<a href="{{ route('login') }}">
+							<i class="pe-7s-user"></i>
+							<p>Login</p>
+						</a>
+					</li>
+					<li {{{ (Request::is('register') ? 'class=active' : '') }}}>
+						<a href="{{ route('register') }}">
+							<i class="pe-7s-add-user"></i>
+							<p>Register</p>
+						</a>
+					</li>
+				@endauth
             </ul>
         </div>
     </div>
@@ -114,41 +129,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">{{ (ucfirst(Route::current()->getName())) }}</a>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-dashboard"></i>
-                                <p class="hidden-lg hidden-md">Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-lg hidden-md"></b>
-                                    <p class="hidden-lg hidden-md">
-                                        5 Notifications
-                                        <b class="caret"></b>
-                                    </p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
-                        </li>
-                        <li>
-                           <a href="#">
-                                <i class="fa fa-search"></i>
-                                <p class="hidden-lg hidden-md">Search</p>
-                            </a>
-                        </li>
-                    </ul>
-
                     <ul class="nav navbar-nav navbar-right">
 						@auth
                         <li class="dropdown">
@@ -160,7 +143,7 @@
 
                               </a>
                               <ul class="dropdown-menu">
-                                <li><a href="#">da</a></li>
+                                <li><a href="{{ route('profile') }}">User Profile</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">nu</a></li>
                               </ul>
@@ -201,30 +184,33 @@
             <div class="container-fluid">
                 <nav class="pull-left">
                     <ul>
-                        <li>
-                            <a href="#">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Company
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Portfolio
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                               Blog
-                            </a>
-                        </li>
+						@auth
+							<li>
+								<a href="{{ route('home') }}">
+									Dashboard
+								</a>
+							</li>
+							<li>
+								<a href="{{ route('profile') }}">
+									User Profile
+								</a>
+							</li>
+						@else
+							<li>
+							   <a href="{{ route('login') }}">
+								   Login
+								</a>
+							</li>
+							<li>
+							   <a href="{{ route('register') }}">
+								   Register
+								</a>
+							</li>
+						@endauth
                     </ul>
                 </nav>
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="#">Responciability</a>, made with love for a better web
                 </p>
             </div>
         </footer>
@@ -234,9 +220,8 @@
 
 
 </body>
-
+	<script src="{{ asset('js/home/jquery.js') }}"></script>
     <!--   Core JS Files   -->
-    <script src="{{asset('assets/js/js/jquery.3.2.1.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
 
     <!--  Charts Plugin -->
