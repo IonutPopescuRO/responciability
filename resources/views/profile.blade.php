@@ -127,7 +127,7 @@
                 lat: iniLat,
                 lng: iniLng
             },
-            zoom: 8
+            zoom: 11
         });
 		
         infoWindow = new google.maps.InfoWindow;
