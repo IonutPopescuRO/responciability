@@ -181,19 +181,52 @@
 
     function log( text ) {
 
+      var arr = text.split('∆');
+      
+      var avatar = arr[0];
+      var name = arr[1];
+      var text2 = arr[2];
+
       var elem =  '<div class="btn btn-outline btn-wd" style="width:100%;text-align:left;margin-bottom:3px;white-space: normal;">'+
                   '<div class="row"> '+
                   '<div class="col-md-1">'+
-                  '<img src="{{asset(Auth::user()->avatar)}}" class="img-responsive img-circle" style="width:30px;height:auto;"/> '+
-                  '</div><div class="col-md-11">'+
-                  '{{Auth::user()->name}} {{Auth::user()->lname}} : '+text+
+                  '<img src="'+avatar+'" class="img-responsive img-circle" style="width:30px;height:auto;"/> '+
+                  '</div><div class="col-md-11">'
+                  +name+' : '+text2+
                  '</div></div>'+
                  '</div><br>';
 
       $('#comments-container').prepend(elem);
     }
 
+    function saveComment(value,parsed)
+    {   
+        $.ajax({
+        type: 'POST',
+        url: "{{ route('comment',['id' => $issue->id]) }}" ,
+        headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                'Cache-Control': ' no-store, no-cache, must-revalidate, post-check=0, pre-check=0"',
+                'Pragma': 'no-cache',
+                'Expires': 'Sat, 26 Jul 1997 05:00:00 GMT',
+            },
+            data: {body:parsed},
+            success: function(data)
+            {   
+                  log( value );
+                  send( value );
+
+                  $('#message').val('');
+            },
+            error: function (request, status, error) {
+              alert(request.responseText);
+          }
+
+      });
+    }
+
     function send( text ) {
+
       Server.send( 'message', text );
     }
 
@@ -202,8 +235,10 @@
 
       $('#commentButton').click(function(e) {
           var value = $('#message').val();
+          var parsed=value;
+          value='{{asset(Auth::user()->avatar)}}∆{{Auth::user()->name}} {{Auth::user()->lname}}∆'+value;
 
-          saveComment(value);
+          saveComment(value, parsed);
         
       });
 
@@ -469,30 +504,7 @@
       });
     }
 
-    function saveComment(value)
-    { 
-        $.ajax({
-        type: 'POST',
-        url: "{{ route('comment',['id' => $issue->id]) }}" ,
-        headers: {
-                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                'Cache-Control': ' no-store, no-cache, must-revalidate, post-check=0, pre-check=0"',
-                'Pragma': 'no-cache',
-                'Expires': 'Sat, 26 Jul 1997 05:00:00 GMT',
-            },
-            data: {body:value},
-            success: function(data)
-            {   
-                  log( value );
-                  send( value );
-                  $('#message').val('');
-            },
-            error: function (request, status, error) {
-              alert(request.responseText);
-          }
-
-      });
-    }
+    
 
 </script>
 
