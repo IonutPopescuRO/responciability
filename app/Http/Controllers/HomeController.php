@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Issue;
+use DB;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -22,7 +25,16 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('home');
+    {   
+        $issues = Issue::where(['status' => 2])->get(); // get only active issues
+        
+        $user_area = DB::table('user_area')
+                             ->select('lat', 'lng')
+                             ->where('user_id', '=', Auth::user()->id)
+                             ->get();
+        return view('home',[
+            'issues' => $issues,
+            'user_area' => $user_area
+        ]);
     }
 }
