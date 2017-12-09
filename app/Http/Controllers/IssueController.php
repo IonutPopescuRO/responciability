@@ -125,7 +125,7 @@ class IssueController extends Controller
         $check = Vote::where(['user_id' => $user->id, 'issue_id' => $id])->get();
 
         $issue=Issue::find($id);
-
+        
         if(!count($check))
         {
             

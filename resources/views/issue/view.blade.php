@@ -8,6 +8,14 @@
         height: 300px;
         width: 100%;
        }
+
+       .ct-series-a .ct-slice-pie, .ct-series-a .ct-area {
+          fill:#1d7d98;
+       }
+
+       .ct-series-b .ct-slice-pie, .ct-series-b .ct-area {
+          fill:#fb404b;
+       }
 </style>
 @endsection
 
@@ -27,6 +35,14 @@
                 	<i id="like-icon" style="color:#87cb16" class="fa @if($status=='disliked' || $status=='neutral') fa-thumbs-o-up @else fa-thumbs-up @endif"></i>
                 </a> <span id="upvotes-count">{{count($issue->upvotes())}} </span>
                 </span>
+                @else
+                <span class="pull-right">
+                  <i id="dislike-icon" style="color:#fb404b" class="fa fa-thumbs-o-down"></i> 
+                  {{count($issue->downvotes())}}
+                  &nbsp&nbsp 
+                  <i id="like-icon" style="color:#87cb16" class="fa fa-thumbs-o-up pull-right"></i>
+                  {{count($issue->upvotes())}}
+                  </span>
                 @endif
                 @endauth
 
@@ -91,6 +107,19 @@
 					User submitted {{count($issue->creator->issues)}} issues so far.
                 </p>
             </div>
+        </div>
+
+        <div class="card card-user">
+
+            <center> Statistics </center>
+
+            <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+
+            <center><div class="legend">
+                <i class="fa fa-circle" style="color:#fb404b;"></i> Downvotes
+                <i class="fa fa-circle" style="fill:#1d7d98;"></i> Upvotes
+            </div></center>
+
         </div>
     </div>
 
@@ -241,6 +270,41 @@
 			});
 
 		}
+
+    function chart()
+    { 
+
+      var likes = Number($('#upvotes-count').html());
+      var dislikes = Number($('#downvotes-count').html())
+      var total = likes+dislikes;
+      var dataPreferences = {
+            series: [
+                [likes, dislikes]
+            ]
+        };
+
+        var optionsPreferences = {
+            donut: true,
+            donutWidth: 40,
+            startAngle: 0,
+            total: 100,
+            showLabel: false,
+            axisX: {
+                showGrid: false
+            }
+        };
+
+        Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
+
+        Chartist.Pie('#chartPreferences', {
+          labels: [((likes/total)*100).toPrecision(2) +'%',((dislikes/total)*100).toPrecision(2)+'%'],
+          series: [likes , dislikes]
+        });
+    }
+
+    $(document).ready(function(){
+      chart();
+    })
 
 </script>
 
