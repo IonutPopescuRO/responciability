@@ -62,7 +62,7 @@
 					</li>
 					<li {{{ (Request::is('issue/create') ? 'class=active' : '') }}}>
 						<a href="{{ url('issue/create') }}">
-							<i class="pe-7s-user"></i>
+							<i class="pe-7s-attention"></i>
 							<p>Report an issue</p>
 						</a>
 					</li>
@@ -113,6 +113,12 @@
 							<p>Issues Administration</p>
 						</a>
 					</li>
+                    <li {{{ (Request::is('admin/stats') ? 'class=active' : '') }}}>
+                        <a href="{{ url('admin/stats') }}">
+                            <i class="pe-7s-graph2"></i>
+                            <p>Admin Stats</p>
+                        </a>
+                    </li>
 				@endif
             </ul>
         </div>
@@ -239,7 +245,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
-            demo.initChartist();
+            //demo.initChartist();
 /*
             $.notify({
                 icon: 'pe-7s-gift',

@@ -85,7 +85,7 @@
             <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                    <i class="fa fa-clock-o"></i> In the last hour
+                    <i class="fa fa-clock-o"></i> Over all your issues.
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        $issues = Issue::where(['status' => 2])->get(); // get only active issues
+        $issues = Issue::whereIn('status' , [2,3])->get(); // get only active issues
 
         $upvotes = $downvotes = 0;
 

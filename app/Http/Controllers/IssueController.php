@@ -164,4 +164,28 @@ class IssueController extends Controller
         else return $lat.' , '.$lng;
     }
 
+    public function archive(Request $request, $id)
+    {
+        $issue=Issue::find($id);
+        $issue->status=1;
+        $issue->save();
+
+        return Response::json([
+                'code' => 200,
+                'status' => 'archived',
+            ], 200); 
+    }
+
+    public function mark(Request $request, $id)
+    {
+        $issue=Issue::find($id);
+        $issue->status=3;
+        $issue->save();
+
+        return Response::json([
+                'code' => 200,
+                'status' => 'marked',
+            ], 200); 
+    }
+
 }
