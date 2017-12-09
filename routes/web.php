@@ -39,4 +39,10 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('admin/u/{userid}', 'ProfileController@viewAsAdmin')->name('viewAsAdmin');
 
 	Route::get('admin/issues', 'AdminIssuesController@index');
+
+	Route::post('issue/archive/{id}', 'IssueController@archive')->name('archive');
+
+	Route::post('issue/mark/{id}', 'IssueController@mark')->name('mark');
+
+	Route::Get('admin/stats', 'AdminIssuesController@stats')->name('stats');
 });

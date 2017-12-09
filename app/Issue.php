@@ -30,5 +30,8 @@ class Issue extends Model
     	return $this->ratings()->where(['type' => 0])->get();
     }
 
-
+    public function getStatus()
+    {
+        return $this->belongsTo('App\Status', 'status');
+    }
 }

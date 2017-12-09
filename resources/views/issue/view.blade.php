@@ -24,9 +24,15 @@
     <div class="col-md-8">
         <div class="card">
             <div class="header">
-                <h4 class="title">{{$issue->title}} &nbsp
+                <h4 class="title">{{$issue->title}} 
                 @auth
-                @if(Auth::user()->id != $issue->creator->id)  
+
+                @if(Auth::user()->isAdmin())
+                  <button class="btn btn-danger" onclick="archive()"> Archive </button>
+                  <button class="btn btn-info" onclick="mark()"> Mark as Solved </button>
+                @endif 
+
+                @if(Auth::user()->id != $issue->creator->id) 
                 <span class="pull-right">
                 <a href="#" onclick="downvote();">
                 	<i id="dislike-icon" style="color:#fb404b" class="fa @if($status=='liked' || $status=='neutral') fa-thumbs-o-down @else fa-thumbs-down @endif "></i>
@@ -58,6 +64,15 @@
                 </h4>
             </div>
             <div class="content">
+
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">Status</label>
+                          <p style="word-break: break-all;"> {{$issue->getStatus->name}} </p>
+                      </div>
+                  </div>
+              </div>
 
             	<img class="img-responsive img-rounded" src="{{asset($issue->image)}}" />
 
@@ -109,7 +124,7 @@
             </div>
         </div>
 
-        <div class="card card-user">
+        <div class="card card-user" id="stats">
 
             <center> Statistics </center>
 
@@ -277,10 +292,24 @@
       var likes = Number($('#upvotes-count').html());
       var dislikes = Number($('#downvotes-count').html())
       var total = likes+dislikes;
+      var labels, series;
+
+      if(dislikes == 0)
+      {
+        series=[likes];
+        labels=['100%'];
+      } else {
+        series = [likes,dislikes];
+        labels=[((likes/total)*100).toPrecision(2) +'%',((dislikes/total)*100).toPrecision(2)+'%'];
+      }
+      console.log(total);
+      if(isNaN(total) || likes == 0)
+      {
+          $('#chartPreferences').parent().hide();
+          return;
+      }
       var dataPreferences = {
-            series: [
-                [likes, dislikes]
-            ]
+            series: series
         };
 
         var optionsPreferences = {
@@ -297,14 +326,76 @@
         Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
 
         Chartist.Pie('#chartPreferences', {
-          labels: [((likes/total)*100).toPrecision(2) +'%',((dislikes/total)*100).toPrecision(2)+'%'],
-          series: [likes , dislikes]
+          labels: labels,
+          series: series
         });
     }
 
     $(document).ready(function(){
       chart();
     })
+
+    function archive()
+    {
+        $.ajax({
+        type: 'POST',
+        url: "{{ route('archive',['id' => $issue->id]) }}" ,
+        headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                'Cache-Control': ' no-store, no-cache, must-revalidate, post-check=0, pre-check=0"',
+                'Pragma': 'no-cache',
+                'Expires': 'Sat, 26 Jul 1997 05:00:00 GMT',
+            },
+            data: {a:1},
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,   // tell jQuery not to set contentType
+            cache:false,
+            success: function(data)
+            {
+
+                     if(data.code == 200)
+                     {
+                        location.reload();
+                     }
+  
+            },
+            error: function (request, status, error) {
+              alert(request.responseText);
+          }
+
+      });
+    }
+
+    function mark()
+    {
+        $.ajax({
+        type: 'POST',
+        url: "{{ route('mark',['id' => $issue->id]) }}" ,
+        headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                'Cache-Control': ' no-store, no-cache, must-revalidate, post-check=0, pre-check=0"',
+                'Pragma': 'no-cache',
+                'Expires': 'Sat, 26 Jul 1997 05:00:00 GMT',
+            },
+            data: {a:1},
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,   // tell jQuery not to set contentType
+            cache:false,
+            success: function(data)
+            {
+
+                     if(data.code == 200)
+                     {
+                        location.reload();
+                     }
+  
+            },
+            error: function (request, status, error) {
+              alert(request.responseText);
+          }
+
+      });
+    }
 
 </script>
 

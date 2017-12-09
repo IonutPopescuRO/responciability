@@ -7,7 +7,7 @@ use App\Issue;
 use DB;
 use Auth;
 
-class HomeController extends Controller
+class IndexController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        $issues = Issue::whereIn('status' , [2,3])->get(); // get only active issues
+        $issues = Issue::where(['status' => 2])->get(); // get only active issues
 
         $upvotes = $downvotes = 0;
 
@@ -39,7 +39,8 @@ class HomeController extends Controller
                              ->select('lat', 'lng')
                              ->where('user_id', '=', Auth::user()->id)
                              ->get();
-        return view('home',[
+		
+        return view('welcome',[
             'issues' => $issues,
             'user_area' => $user_area,
             'upvotes' => $upvotes,
