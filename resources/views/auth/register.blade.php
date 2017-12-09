@@ -128,24 +128,34 @@
 
                                 @if ($errors->has('avatar'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('vatar') }}</strong>
+                                        <strong>{{ $errors->first('avatar') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('area') ? ' has-error' : '' }}">
                             <label for="avatar" class="col-md-4 control-label">Area of interest</label>
 
                             <div class="col-md-6">
                                 <div id="map"></div>
+                                @if ($errors->has('area'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('area') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('location') ? ' has-error' : '' }}">
                             <label for="avatar" class="col-md-4 control-label">Geolocation</label>
 
                             <div class="col-md-6">
                                 <div id="map2"></div>
+                                @if ($errors->has('location'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('location') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 

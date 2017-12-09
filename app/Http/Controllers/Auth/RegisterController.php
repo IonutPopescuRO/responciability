@@ -74,7 +74,9 @@ class RegisterController extends Controller
             'lname' => 'required|string|max:255',
             'age' => 'required|integer',
             'gender' => 'required',
-            'avatar' => 'image'
+            'avatar' => 'image',
+            'location' => 'required',
+            'area' => 'required',
         ]);
     }
 
