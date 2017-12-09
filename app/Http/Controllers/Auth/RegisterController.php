@@ -100,7 +100,7 @@ class RegisterController extends Controller
             'age' => $data['age'],
             'gender' => $data['gender'],
             'lname' => $data['lname'],
-            'avatar' => NULL,
+            'avatar' => "../images/no_avatar.png",
             'lat' => $ulat,
             'lng' => $ulng
         ]);
