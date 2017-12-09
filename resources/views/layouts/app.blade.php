@@ -12,23 +12,23 @@
 
 
     <!-- Bootstrap core CSS     -->
-    <link href="{{asset('assets/css/bootstrap.min.css')}}"" rel="stylesheet" />
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
 
     <!-- Animation library for notifications   -->
-    <link href="{{asset('assets/css/animate.min.css')}}"" rel="stylesheet"/>
+    <link href="{{asset('assets/css/animate.min.css')}}" rel="stylesheet"/>
 
     <!--  Light Bootstrap Table core CSS    -->
-    <link href="{{asset('assets/css/light-bootstrap-dashboard.css')}}"?v=1.4.0" rel="stylesheet"/>
+    <link href="{{asset('assets/css/light-bootstrap-dashboard.css?v=1.4.0')}}" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="{{asset('assets/css/demo.css')}}"" rel="stylesheet" />
+    <link href="{{asset('assets/css/demo.css')}}" rel="stylesheet" />
 
 
     <!--     Fonts and icons     -->
-    <link href="{{asset('http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css')}}"" rel="stylesheet">
+    <link href="{{asset('http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="{{asset('assets/css/pe-icon-7-stroke.css')}}"" rel="stylesheet" />
+    <link href="{{asset('assets/css/pe-icon-7-stroke.css')}}" rel="stylesheet" />
 
 	@yield('styles')
 </head>
@@ -236,7 +236,7 @@
 </body>
 
     <!--   Core JS Files   -->
-    <script src='{{asset("assets/js/jquery.3.2.1.min.js") }}' type="text/javascript"></script>
+    <script src="{{asset('assets/js/js/jquery.3.2.1.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
 
     <!--  Charts Plugin -->
@@ -247,7 +247,7 @@
 
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-    <script src="{{asset('assets/js/light-bootstrap-dashboard.js?v=1.4.0')}}""></script>
+    <script src="{{asset('assets/js/light-bootstrap-dashboard.js?v=1.4.0')}}"></script>
 
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="{{asset('assets/js/demo.js')}}"></script>
