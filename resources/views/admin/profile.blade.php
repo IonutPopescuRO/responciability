@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') Profile @endsection
+@section('title') User Administration @endsection
 
 @section('styles')
 <style>
@@ -17,15 +17,33 @@
     <div class="col-md-8">
         <div class="card">
             <div class="header">
-                <h4 class="title">Edit Profile</h4>
+                <h4 class="title">User Administration</h4>
             </div>
             <div class="content">
+							<form method="POST" action="{{ route('admin/user',['id' => $user_id]) }}" enctype="multipart/form-data">
+								<div class="row">
+									<div class="col-md-9">
+										{{ csrf_field() }}
+										<div class="form-group">
+											<select class="form-control" name="role">
+												<option value="1"<?php if($user->role==1) print ' selected'; ?>>User</option>
+												<option value="2"<?php if($user->role==2) print ' selected'; ?>>Admin</option>
+											</select> 
+										</div>
+									</div>
+									<div class="col-md-3">
+										<button type="submit" class="btn btn-wd btn-warning btn-outline">
+											<span class="btn-label"><i class="fa fa-exclamation"></i></span> Update
+										</button>
+									</div>
+								</div>
+							</form>
                 <form>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
-                                <input class="form-control" placeholder="Email" type="email" value="{{ Auth::user()->email }}" disabled="">
+                                <input class="form-control" placeholder="Email" type="email" value="{{ $user->email }}" disabled="">
                             </div>
                         </div>
                     </div>
@@ -34,13 +52,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input class="form-control" placeholder="Company" value="{{ Auth::user()->name }}" type="text">
+                                <input class="form-control" placeholder="Company" value="{{ $user->name }}" type="text" disabled="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input class="form-control" placeholder="Last Name" value="{{ Auth::user()->lname }}" type="text">
+                                <input class="form-control" placeholder="Last Name" value="{{ $user->lname }}" type="text" disabled="">
                             </div>
                         </div>
                     </div>
@@ -49,16 +67,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Age</label>
-                                <input class="form-control" placeholder="City" value="{{ Auth::user()->age }}" type="number">
+                                <input class="form-control" placeholder="City" value="{{ $user->age }}" type="number" disabled="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Gender</label>
-								<select class="form-control" name="gender">
-									<option value="Male"<?php if(Auth::user()->gender=="Male") print ' selected'; ?>>Male</option>
-									<option value="Female"<?php if(Auth::user()->gender=="Female") print ' selected'; ?>>Female</option>
-									<option value="Other"<?php if(Auth::user()->gender=="Other") print ' selected'; ?>>Other</option>
+								<select class="form-control" name="gender" disabled="">
+									<option value="Male"<?php if($user->gender=="Male") print ' selected'; ?>>Male</option>
+									<option value="Female"<?php if($user->gender=="Female") print ' selected'; ?>>Female</option>
+									<option value="Other"<?php if($user->gender=="Other") print ' selected'; ?>>Other</option>
 								</select> 
                             </div>
                         </div>
@@ -78,7 +96,6 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
                     <div class="clearfix"></div>
                 </form>
             </div>
@@ -92,20 +109,20 @@
             <div class="content">
                 <div class="author">
                     <a href="#">
-                        <img class="avatar border-gray" src="{{ asset(Auth::user()->avatar) }}" alt="...">
+                        <img class="avatar border-gray" src="{{ asset($user->avatar) }}" alt="...">
 
-                        <h4 class="title">{{ Auth::user()->name }} {{ Auth::user()->lname }}<br>
-                                         <small>{{ Auth::user()->email }}</small>
+                        <h4 class="title">{{ $user->name }} {{ $user->lname }}<br>
+                                         <small>{{ $user->email }}</small>
                                       </h4>
                     </a>
                 </div>
 				</br></br></br>
 				<hr>
                 <p class="description text-center">
-					Account created on {{ Auth::user()->created_at }}
+					Account created on {{ $user->created_at }}
                 </p>
                 <p class="description text-center">
-                    You submitted {{count(Auth::user()->issues)}} issues so far.
+                    {{ $user->name }}  submitted {{count($user->issues)}} issues so far.
                 </p>
             </div>
         </div>
@@ -122,8 +139,8 @@
     function initMap() {
 		
 		var iniLat, iniLng;
-		iniLat = {{ Auth::user()->lat }};
-		iniLng = {{ Auth::user()->lng }};
+		iniLat = {{ $user->lat }};
+		iniLng = {{ $user->lng }};
 		
 		<?php if(isset($user_area[0])) print 'iniLat = '.$user_area[0]->lat.'; iniLng = '.$user_area[0]->lng.';'; ?>
 		
@@ -141,8 +158,8 @@
         var map2 = new google.maps.Map(document.getElementById('map2'), {
             zoom: 13,
             center: {
-                lat: {{ Auth::user()->lat }},
-                lng: {{ Auth::user()->lng }}
+                lat: {{ $user->lat }},
+                lng: {{ $user->lng }}
             }
         });
 
@@ -181,8 +198,8 @@
 
         var marker = new google.maps.Marker({
           position: {
-                lat: {{ Auth::user()->lat }},
-                lng: {{ Auth::user()->lng }}
+                lat: {{ $user->lat }},
+                lng: {{ $user->lng }}
 		  },
           map: map2,
           draggable: true,
