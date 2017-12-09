@@ -20,3 +20,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
+
+Route::get('/issue/v/{id}', 'IssueController@view')->name('viewIssue');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('issue/create', 'IssueController@show')->name('issueForm');
+
+    Route::post('issue/create', 'IssueController@create')->name('createIssue');
+
+    Route::get('issue/list', 'IssueController@list')->name('listIssues');
+});

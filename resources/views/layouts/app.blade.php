@@ -2,10 +2,11 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="{{ asset('images/icon.png') }}" />
+
+    <link rel="icon" type="image/png" href="{{ asset('images/icon.png') }}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Responciability</title>
+    <title>@yield('title') - Responciability</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -129,7 +130,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">{{ (ucfirst(Route::current()->getName())) }}</a>
+                    <a class="navbar-brand" href="#">@yield('title'</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -229,6 +230,7 @@
 
     <!--  Notifications Plugin    -->
     <script src="{{asset('assets/js/bootstrap-notify.js')}}"></script>
+
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="{{asset('assets/js/light-bootstrap-dashboard.js?v=1.4.0')}}"></script>

@@ -128,7 +128,7 @@
 									</div>
 									<div class="count">858</div>
 									<h3>Upvotes</h3>
-									<p>For glory.</p>
+									<p>For recognition.</p>
 								</div>
 							</div>
 							<div class="box white box-shadow-z3 col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -242,5 +242,5 @@
 </script>
 
 <script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAApItPR-oxvnmOLsXyievDTiNuBM6jQ4s&libraries=drawing&callback=initMap" async defer>
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWp9GONdDBwwU7eBcaY8G7DgbDDMZX6hk&libraries=drawing&callback=initMap" async defer>
 </script>
