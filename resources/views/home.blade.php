@@ -21,13 +21,63 @@
                 <div class="row">
                     <div class="col-md-5">
                         <div class="icon-big text-center icon-warning">
-                            <i class="fa fa-user text-success" aria-hidden="true"></i>
+                            <i class="fa fa-map-marker text-warning" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="numbers">
-                            <p class="card-category">Errors</p>
-                            <h4 class="card-title">23</h4>
+                            <p class="card-category">Issues</p>
+                            <h4 class="card-title">{{count(Auth::user()->issues)}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-clock-o"></i> Issues submitted by you.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="icon-big text-center icon-success">
+                            <i class="fa fa-thumbs-o-up text-success" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="numbers">
+                            <p class="card-category">Upvotes</p>
+                            <h4 class="card-title">{{$upvotes}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-clock-o"></i> Over all your issues.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="icon-big text-center icon-danger">
+                            <i class="fa fa-thumbs-o-down text-danger" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="numbers">
+                            <p class="card-category">Downvotes</p>
+                            <h4 class="card-title">{{$downvotes}}</h4>
                         </div>
                     </div>
                 </div>

@@ -27,14 +27,23 @@ class HomeController extends Controller
     public function index()
     {   
         $issues = Issue::where(['status' => 2])->get(); // get only active issues
-        
+
+        $upvotes = $downvotes = 0;
+
+        foreach($issues as $issue){
+            $upvotes+=count($issue->upvotes());
+            $downvotes+=count($issue->downvotes());
+        }
+
         $user_area = DB::table('user_area')
                              ->select('lat', 'lng')
                              ->where('user_id', '=', Auth::user()->id)
                              ->get();
         return view('home',[
             'issues' => $issues,
-            'user_area' => $user_area
+            'user_area' => $user_area,
+            'upvotes' => $upvotes,
+            'downvotes' => $downvotes
         ]);
     }
 }
