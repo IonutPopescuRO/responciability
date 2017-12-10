@@ -28,12 +28,7 @@
                 <h4 class="title">{{$issue->title}} 
                 @auth
 
-                @if(Auth::user()->isAdmin())
-                  <button class="btn btn-danger" onclick="archive()"> Archive </button>
-                  <button class="btn btn-info" onclick="activate()"> Mark Active </button>
-                  <button class="btn btn-success" onclick="mark()"> Mark Solved </button>
-                @endif 
-
+                
                 @if(Auth::user()->id != $issue->creator->id) 
                 <span class="pull-right">
                 <a href="#" onclick="downvote();">
@@ -46,10 +41,10 @@
                 @else
                 <span class="pull-right">
                   <i id="dislike-icon" style="color:#fb404b" class="fa fa-thumbs-o-down"></i> 
-                  {{count($issue->downvotes())}}
+                  <span id="downvotes-count">{{count($issue->downvotes())}}</span>
                   &nbsp&nbsp 
                   <i id="like-icon" style="color:#87cb16" class="fa fa-thumbs-o-up pull-right"></i>
-                  {{count($issue->upvotes())}}
+                  <span id="upvotes-count">{{count($issue->upvotes())}}</span>
                   </span>
                 @endif
                 @endauth
@@ -102,6 +97,22 @@
         </div>
     </div>
     <div class="col-md-4">
+
+        @if(Auth::user()->isAdmin())
+        <div class="card card-stats">
+                  <div class="card-body ">
+                    <center>
+                      
+                        <button class="btn btn-danger" onclick="archive()"> Archive </button><br><br>
+                        <button class="btn btn-info" onclick="activate()"> Mark Active </button><br><br>
+                        <button class="btn btn-success" onclick="mark()"> Mark Solved </button>
+                      
+                      </center>  
+                  </div>
+                  <div class="card-footer ">
+                  </div>
+        </div>
+        @endif
         <div class="card card-user">
             <div class="image">
                 <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&amp;fm=jpg&amp;h=300&amp;q=75&amp;w=400" alt="...">
@@ -139,6 +150,33 @@
             </div></center>
 
         </div>
+
+        
+              <div class="card card-stats">
+                  <div class="card-body ">
+                      <div class="row">
+                          <div class="col-md-5">
+                              <div class="icon-big text-center icon-info">
+                                  <i class="fa fa-comments text-info" aria-hidden="true"></i>
+                              </div>
+                          </div>
+                          <div class="col-md-7">
+                              <div class="numbers">
+                                  <p class="card-category">Comments</p>
+                                  <h4 class="card-title">{{count($issue->comments)}}</h4>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-footer ">
+                      <hr>
+                      <div class="stats">
+                          <i class="fa fa-clock-o"></i> See what other users think about this issue.
+                      </div>
+                  </div>
+              </div>
+          
+        
     </div>
 
 </div>
@@ -413,7 +451,7 @@
       }
       console.log(total);
       if(isNaN(total) || likes == 0)
-      {
+      {   
           $('#chartPreferences').parent().hide();
           return;
       }
@@ -441,6 +479,7 @@
     }
 
     $(document).ready(function(){
+
       chart();
     })
 
