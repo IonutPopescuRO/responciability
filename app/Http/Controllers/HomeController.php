@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Issue;
+use App\Vote;
 use DB;
 use Auth;
 
@@ -30,12 +31,9 @@ class HomeController extends Controller
 
         $solved = Issue::where(['user_id' => Auth::user()->id, 'status' => 3])->get();
 
-        $upvotes = $downvotes = 0;
+        $upvotes = Vote::where(['user_id' => Auth::user()->id, 'type' =>1])->get();
 
-        foreach($issues as $issue){
-            $upvotes+=count($issue->upvotes());
-            $downvotes+=count($issue->downvotes());
-        }
+        $downvotes = Vote::where(['user_id' => Auth::user()->id, 'type' =>0])->get();
 
         $user_area = DB::table('user_area')
                              ->select('lat', 'lng')
@@ -44,8 +42,8 @@ class HomeController extends Controller
         return view('home',[
             'issues' => $issues,
             'user_area' => $user_area,
-            'upvotes' => $upvotes,
-            'downvotes' => $downvotes,
+            'upvotes' => count($upvotes),
+            'downvotes' => count($downvotes),
             'solved' => $solved
         ]);
     }

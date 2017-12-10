@@ -22,7 +22,7 @@ class IssueController extends Controller
     public function create(Request $request)
     {
     	$request->validate([
-    		'title'=>'required|max:35|unique:issues',
+    		'title'=>'required|max:50|unique:issues',
     		'description' => 'required|max:3000',
     		'location' => 'required',
     		'image' => 'required|image'
