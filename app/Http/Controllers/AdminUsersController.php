@@ -48,10 +48,10 @@ class AdminUsersController extends Controller
         $user->accepted = 1;
         $user->save();
 		
-        Mail::raw('Text to e-mail', function ($m) use ($user) {
-            $m->from('hello@app.com', 'Responciability');
+        Mail::raw('Hello! And welcome to Responciability. We hope you will have a good time and make your community grow together. Good luck submitting issues!', function ($m) use ($user) {
+            $m->from('contact@responciability.com', 'Responciability');
 
-            $m->to($user->email, $user->name)->subject('accepted!');
+            $m->to($user->email, $user->name)->subject('Welcome to Responciability!');
         });
 
         return Response::json([
@@ -72,10 +72,10 @@ class AdminUsersController extends Controller
         $user->save();
 
 
-        Mail::raw('Text to e-mail', function ($m) use ($user) {
-            $m->from('hello@app.com', 'Responciability');
+        Mail::raw('We\'re sorry, but our admins decided that you are not a good fit for a platform like Reponciability. Please try registering later!', function ($m) use ($user) {
+            $m->from('contact@responciability.com', 'Responciability');
 
-            $m->to($user->email, $user->name)->subject('rejected!');
+            $m->to($user->email, $user->name)->subject('We\'re sorry...');
         });
 		
         return Response::json([

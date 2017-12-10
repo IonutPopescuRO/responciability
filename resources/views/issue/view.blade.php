@@ -101,6 +101,7 @@
         @if(Auth::user()->isAdmin())
         <div class="card card-stats">
                   <div class="card-body ">
+                    <center> Admin Actions </center> <br>
                     <center>
                       
                         <button class="btn btn-danger" onclick="archive()"> Archive </button><br><br>
