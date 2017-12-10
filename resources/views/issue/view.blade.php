@@ -335,7 +335,7 @@
 	}
 
 	function upvote()
-		{	
+		{	if(!$('#like-icon').hasClass('fa fa-thumbs-up '))
 			$.ajax({
 				type: 'POST',
 				url: "{{ route('upvote',['id' => $issue->id]) }}" ,
@@ -372,7 +372,6 @@
 
                      	@endif
 
-                     	location.reload();
                      }
 
 	        	},
@@ -385,6 +384,7 @@
 		}
 	function downvote()
 		{	
+      if(!$('#dislike-icon').hasClass('fa fa-thumbs-down '))
 			$.ajax({
 				type: 'POST',
 				url: "{{ route('downvote',['id' => $issue->id]) }}" ,
@@ -421,7 +421,6 @@
 
 						@endif
 
-						location.reload();
                      }
 
 	        	},
