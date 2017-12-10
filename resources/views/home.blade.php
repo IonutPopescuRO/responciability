@@ -12,7 +12,6 @@
 @endsection
 
 @section('content')
-<div class="container">
 
 <div class="row">
     <div class="col-lg-3 col-sm-6">
@@ -90,11 +89,36 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="icon-big text-center icon-danger">
+                            <i class="fa fa-heart text-danger" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="numbers">
+                            <p class="card-category">Solved</p>
+                            <h4 class="card-title">{{count($solved)}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-clock-o"></i> Thank you for contributing.
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
 
-    <div class="col-md-10">
+    <div class="col-md-12">
 		<div class="card">
 			<div class="header">
 				<h4 class="title"> Active issues in your area : </h4>
@@ -104,7 +128,6 @@
 			</div>
 		</div>
     </div>
-</div>
 </div>
 @endsection
 

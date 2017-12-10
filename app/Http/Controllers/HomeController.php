@@ -28,6 +28,8 @@ class HomeController extends Controller
     {   
         $issues = Issue::whereIn('status' , [2,3])->get(); // get only active issues
 
+        $solved = Issue::where(['user_id' => Auth::user()->id, 'status' => 3])->get();
+
         $upvotes = $downvotes = 0;
 
         foreach($issues as $issue){
@@ -43,7 +45,8 @@ class HomeController extends Controller
             'issues' => $issues,
             'user_area' => $user_area,
             'upvotes' => $upvotes,
-            'downvotes' => $downvotes
+            'downvotes' => $downvotes,
+            'solved' => $solved
         ]);
     }
 }
