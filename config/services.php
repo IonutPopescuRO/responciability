@@ -36,8 +36,8 @@ return [
     ],
 	
 	'facebook' => [
-		'client_id' => '301135903709498',
-		'client_secret' => '44be8616a86d2c3fbe0754bdeb79c63c',
+		'client_id' => '705406309649881',
+		'client_secret' => '8258892b6262bf7d199620df407f6620',
 		'redirect' => 'http://localhost:8000/login/facebook',
 	],
 	

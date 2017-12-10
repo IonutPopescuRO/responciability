@@ -7,6 +7,7 @@ use DB;
 use Auth;
 use App\User;
 use Illuminate\Support\Facades\Response;
+use Mail;
 
 class AdminUsersController extends Controller
 {
@@ -46,6 +47,12 @@ class AdminUsersController extends Controller
 
         $user->accepted = 1;
         $user->save();
+		
+        Mail::raw('Text to e-mail', function ($m) use ($user) {
+            $m->from('hello@app.com', 'Responciability');
+
+            $m->to($user->email, $user->name)->subject('accepted!');
+        });
 
         return Response::json([
                 'code' => 200,
@@ -64,6 +71,13 @@ class AdminUsersController extends Controller
         $user->accepted = 0;
         $user->save();
 
+
+        Mail::raw('Text to e-mail', function ($m) use ($user) {
+            $m->from('hello@app.com', 'Responciability');
+
+            $m->to($user->email, $user->name)->subject('rejected!');
+        });
+		
         return Response::json([
                 'code' => 200,
                 'status' => 'banned',
