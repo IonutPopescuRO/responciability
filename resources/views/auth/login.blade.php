@@ -6,10 +6,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-
-                <div class="panel-body">
+            <div class="card">
+                <div class="header"><h4 class="title">Login</h4></div>
+				<hr>
+                <div class="content">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
@@ -69,6 +69,14 @@
                             </div>
                         </div>
                     </form>
+					<div class="footer">
+						<hr>
+						<div class="stats">
+							<a href="{{ url('login/facebook') }}" class="btn btn-social btn-facebook" style="background-color: #2d4373;color: #FFFFFF;border-color: #3b5998;"><i class="fa fa-facebook-square"></i> Connect with Facebook</a>
+							<a href="{{ url('login/google') }}" class="btn btn-social btn-google" style="background-color:border-color: #dd4b39;background-color: #dd4b39;color: #FFFFFF;"><i class="fa fa-facebook-square"></i> Connect with Google</a>
+							<a href="{{ url('login/twitter') }}" class="btn btn-social btn-twitter" style="background-color:border-color: #55acee;background-color: #55acee;color: #FFFFFF;"><i class="fa fa-facebook-square"></i> Connect with Twitter</a>
+						</div>
+					</div>
                 </div>
             </div>
         </div>

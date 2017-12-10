@@ -14,11 +14,12 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="header"><h4 class="title">Register</h4></div>
+				<hr>
 
-                <div class="panel-body">
+                <div class="content">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 

@@ -7,6 +7,7 @@ use DB;
 use Auth;
 use App\User;
 use App\AreaOfInterest;
+use Mail;
 
 class ProfileController extends Controller
 {
@@ -26,6 +27,7 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+	 
     public function index()
     {
 		$user_id = Auth::user()->id;
@@ -33,7 +35,7 @@ class ProfileController extends Controller
 							 ->select('lat', 'lng')
 							 ->where('user_id', '=', $user_id)
 							 ->get();
-							 
+							 					 
         return view('profile', ['user_area' => $user_area]);
     }
 	
