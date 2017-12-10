@@ -46,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::post('issue/mark/{id}', 'IssueController@mark')->name('mark');
 
+	Route::post('issue/activate/{id}', 'IssueController@activate')->name('activate');
+
 	Route::get('admin/stats', 'AdminIssuesController@stats')->name('stats');
 
 	Route::post('/issue/comment/{id}', 'IssueController@addComment')->name('comment');

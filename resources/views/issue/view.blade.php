@@ -30,7 +30,8 @@
 
                 @if(Auth::user()->isAdmin())
                   <button class="btn btn-danger" onclick="archive()"> Archive </button>
-                  <button class="btn btn-info" onclick="mark()"> Mark as Solved </button>
+                  <button class="btn btn-info" onclick="activate()"> Mark Active </button>
+                  <button class="btn btn-success" onclick="mark()"> Mark Solved </button>
                 @endif 
 
                 @if(Auth::user()->id != $issue->creator->id) 
@@ -64,6 +65,7 @@
                 @endguest
                 </h4>
             </div>
+            <hr>
             <div class="content">
 
               <div class="row">
@@ -504,7 +506,36 @@
       });
     }
 
-    
+    function activate()
+    {
+        $.ajax({
+        type: 'POST',
+        url: "{{ route('activate',['id' => $issue->id]) }}" ,
+        headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                'Cache-Control': ' no-store, no-cache, must-revalidate, post-check=0, pre-check=0"',
+                'Pragma': 'no-cache',
+                'Expires': 'Sat, 26 Jul 1997 05:00:00 GMT',
+            },
+            data: {a:1},
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,   // tell jQuery not to set contentType
+            cache:false,
+            success: function(data)
+            {
+
+                     if(data.code == 200)
+                     {
+                        location.reload();
+                     }
+  
+            },
+            error: function (request, status, error) {
+              alert(request.responseText);
+          }
+
+      });
+    }
 
 </script>
 

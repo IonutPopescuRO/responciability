@@ -189,6 +189,18 @@ class IssueController extends Controller
             ], 200); 
     }
 
+    public function activate(Request $request, $id)
+    {
+        $issue=Issue::find($id);
+        $issue->status=2;
+        $issue->save();
+
+        return Response::json([
+                'code' => 200,
+                'status' => 'marked',
+            ], 200); 
+    }
+
     public function addComment(Request $request, $id)
     {   
         $this->validate($request, [
