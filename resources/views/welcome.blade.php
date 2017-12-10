@@ -85,7 +85,7 @@
 					<div class="container p-y-lg pos-rlt">
 						<h1 class="display-3 _700 l-s-n-3x m-t-lg m-b-md" style="color:white">Want to <span style="color:#d9534f">help</span> out?</h1>
 						
-						<a href="#" class="btn btn-danger btn-lg">Report an issue!</a>
+						<a href="{{ url('/home') }}" class="btn btn-danger btn-lg">Report an issue!</a>
 					</div>
 				</div>
 			</div>

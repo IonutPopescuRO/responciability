@@ -164,7 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Cornford\Googlmapper\MapperServiceProvider::class,
-
+		Laravel\Socialite\SocialiteServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -226,7 +226,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class
+        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
+		'Socialite' => Laravel\Socialite\Facades\Socialite::class
 
     ],
 

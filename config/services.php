@@ -34,5 +34,23 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+	
+	'facebook' => [
+		'client_id' => '301135903709498',
+		'client_secret' => '44be8616a86d2c3fbe0754bdeb79c63c',
+		'redirect' => 'http://localhost:8000/login/facebook',
+	],
+	
+	'google' => [
+		'client_id' => '705020798668-mvannpvmjri7d0udnhesu49dn66cfui9.apps.googleusercontent.com',
+		'client_secret' => 'LHPET598EIP8MiCsl8qV96_v',
+		'redirect' => 'http://localhost:8000/login/google',
+	],
+	
+	'twitter' => [
+		'client_id' => 'jtgz55gwLfLv12sWywFYaXvJ7',
+		'client_secret' => 'G8y5o4FpbSRitTicxu2nLfAhfTOLbK1ZsTh9XP7cWvAUieGpI6',
+		'redirect' => 'http://localhost:8000/login/twitter',
+	],
 
 ];
