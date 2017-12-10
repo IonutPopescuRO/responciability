@@ -108,7 +108,7 @@
 								<div class="tile-stats">
 									<div class="icon"><i class="fa fa-user"></i>
 									</div>
-									<div class="count">102</div>
+									<div class="count">{{count($users)}}</div>
 									<h3>Active Users</h3>
 									<p>For the people.</p>
 								</div>
@@ -117,7 +117,7 @@
 								<div class="tile-stats">
 									<div class="icon"><i class="fa fa-comments-o"></i>
 									</div>
-									<div class="count">235</div>
+									<div class="count">{{count($solvedIssues)}}</div>
 									<h3>Solved Issues</h3>
 									<p>For a better community.</p>
 								</div>
@@ -126,7 +126,7 @@
 								<div class="tile-stats">
 									<div class="icon"><i class="fa fa-thumbs-o-up"></i>
 									</div>
-									<div class="count">858</div>
+									<div class="count">{{$upvotes}}</div>
 									<h3>Upvotes</h3>
 									<p>For recognition.</p>
 								</div>
@@ -135,7 +135,7 @@
 								<div class="tile-stats">
 									<div class="icon"><i class="fa fa-thumbs-o-down"></i>
 									</div>
-									<div class="count">453</div>
+									<div class="count">{{$downvotes}}</div>
 									<h3>Downvotes</h3>
 									<p>For social responsibility.</p>
 								</div>

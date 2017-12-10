@@ -4,20 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Issue;
+use App\User;
 use DB;
 use Auth;
 
 class IndexController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -27,6 +19,8 @@ class IndexController extends Controller
     public function index()
     {   
         $issues = Issue::where(['status' => 2])->get(); // get only active issues
+        $solvedIssues= Issue::where('status', 3)->get();
+        $users = User::all();
 
         $upvotes = $downvotes = 0;
 
@@ -37,14 +31,15 @@ class IndexController extends Controller
 
         $user_area = DB::table('user_area')
                              ->select('lat', 'lng')
-                             ->where('user_id', '=', Auth::user()->id)
                              ->get();
 		
         return view('welcome',[
             'issues' => $issues,
             'user_area' => $user_area,
             'upvotes' => $upvotes,
-            'downvotes' => $downvotes
+            'downvotes' => $downvotes,
+            'solvedIssues' => $solvedIssues,
+            'users' => $users,
         ]);
     }
 }
