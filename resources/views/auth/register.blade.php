@@ -14,7 +14,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 col-md-offset-2">
             <div class="card">
                 <div class="header"><h4 class="title">Register</h4></div>
 				<hr>

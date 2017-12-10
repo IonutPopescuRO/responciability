@@ -149,8 +149,6 @@
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="{{ route('profile') }}">User Profile</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">nu</a></li>
                               </ul>
                         </li>
                         <li>
