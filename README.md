@@ -18,7 +18,7 @@ Repository for iTEC 2017 code of "$team = ' Just code it'" . The project name is
 - setup .env DB credentials ( mail server creds not included in repo )
 - php artisan migrate
 - php artisan db:seed
-- php artisan server ( starts main site on localhost:8000 )  
+- php artisan serve ( starts main site on localhost:8000 )  
 
 ## start websocket 
 - cd ws-server
