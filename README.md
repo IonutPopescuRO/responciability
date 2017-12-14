@@ -8,4 +8,21 @@ Repository for iTEC 2017 code of "$team = ' Just code it'" . The project name is
 ## Useful commands:
 
 * watch -n1 -x command
-* Run server.php WS
+* Run server.php WS  
+
+## 1st time setup (php7.0 required)
+- clone
+- composer install
+- php artisan key:generate
+- php artisan migrate
+- php artisan db:seed
+- php artisan server ( starts main site on localhost:8000 )  
+
+## start websocket 
+- cd ws-server
+- php server.php ( no message should be shown )
+
+## start background archiving :  
+- watch -n30 -x php artisan archive:issues  
+
+- site live on localhost:8000, change role to 2 from db to have admin rights, enjoy
