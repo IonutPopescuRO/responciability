@@ -10,10 +10,12 @@ Repository for iTEC 2017 code of "$team = ' Just code it'" . The project name is
 * watch -n1 -x command
 * Run server.php WS  
 
-## 1st time setup (php7.0 required)
+## 1st time setup (php7.0 and mysql required)
 - clone
 - composer install
 - php artisan key:generate
+- create db itec in mysql
+- setup .env DB credentials ( mail server creds not included in repo )
 - php artisan migrate
 - php artisan db:seed
 - php artisan server ( starts main site on localhost:8000 )  
